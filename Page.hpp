@@ -13,6 +13,7 @@
 #ifndef ASSIGNMENT1_V2_PAGE_HPP
 #define ASSIGNMENT1_V2_PAGE_HPP
 
+#include <utility>
 #include <vector>
 #include <string>
 
@@ -43,7 +44,7 @@ public:
      * @param new_name the name of the page
      * @param links the pages that are linked to from this page
      */
-    Page(string &new_name, vector<Page> &links) : name{new_name}, wildcard{false}, linked_pages{ links } {}
+    Page(string &new_name, vector<Page> links) : name{new_name}, wildcard{false}, linked_pages{std::move( links )} {}
 
     /**
      * Get the name of the page.
