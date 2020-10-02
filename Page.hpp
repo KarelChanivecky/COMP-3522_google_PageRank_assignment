@@ -64,6 +64,22 @@ public:
      * @return true if the page is a wildcard, else false
      */
     bool is_wildcard() const { return wildcard; }
+
+    /**
+     * Evaluate if two given pages are equal
+     * @param lhs a Page
+     * @param rhs a Page
+     * @return true if equal, else false
+     */
+    friend bool operator==(const Page &lhs, const Page &rhs);
+
+    /**
+     * Evaluate if two given pages are not equal
+     * @param lhs a Page
+     * @param rhs a Page
+     * @return true if not equal, else false
+     */
+    friend bool operator!=(const Page &lhs, const Page &rhs);
 };
 
 

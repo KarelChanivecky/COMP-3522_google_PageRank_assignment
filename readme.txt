@@ -1,4 +1,6 @@
 Karel Chanivecky Garcia
 A01052674
 
-0% complete
+90% header files content completed
+10% implementation
+95% design

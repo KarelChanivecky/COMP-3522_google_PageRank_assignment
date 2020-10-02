@@ -1,6 +1,9 @@
 #include <iostream>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    // Instantiate all pages
+    // instantiate Connectivity_Matrix
+    // Instantiate Stochastic_Matrix
+    // get rankings from Stochastic_Matrix
     return 0;
 }

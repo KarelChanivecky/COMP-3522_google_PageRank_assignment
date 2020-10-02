@@ -18,13 +18,13 @@
 using namespace std;
 
 class Matrix {
-private:
+protected:
     static constexpr double DEFAULT_VAL{ 0.0 };
     static constexpr int DEFAULT_SIZE{ 1 };
     static constexpr double FLOAT_TOLERANCE{ 1.0 };
 
-    int col_count{};
-    int row_count{};
+    int col_count;
+    int row_count;
     vector<vector<double>> matrix;
 public:
 
@@ -40,25 +40,33 @@ public:
     /**
      * Construct an instance with equal number of rows and columns
      * @param square_size an int, the size of the sides
-     * TODO @throws exception if arg is <= 0
+     * TODO square contructor @throws exception if arg is <= 0
      */
-    Matrix(const int square_size) : col_count(square_size), row_count(square_size) {};
+    explicit Matrix(const int square_size) : col_count(square_size), row_count(square_size) {};
 
     /**
      * Construct an instance with the passed size
      * @param cols the number of columns
      * @param rows the number of rows
-     * TODO @throws exception if any arg is <= 0
+     * TODO consturctor col, rows @throws exception if any arg is <= 0
      */
     Matrix( int cols, int rows );
 
     /**
      * Construct an instance where sides are sized to the square root of the size of the passed vector.
+     *
+     * The values are then assigned as such:
+     *
+     * [0, 0, 0, 1, 1, 1, 2, 2, 2]
+     *  ->
+     * 0  0  0
+     * 1  1  1
+     * 2  2  2
+     *
      * @param initial_values a vector<double> the initial values to populate
-     * TODO @throws exception if size of arg does not have an integer square root
-     * TODO ask jeff how the heck do you init this
+     * TODO constructor 1d vector @throws exception if size of arg does not have an integer square root
      */
-    Matrix(vector<double>  initial_values);
+    explicit Matrix(vector<double>  initial_values);
 
     /**
      * Construct an instance by copying a given matrix.
@@ -70,7 +78,7 @@ public:
      * Construct an instance by copying the contents of a given 2d vector of double.
      * @param old_vector
      */
-    Matrix( vector<vector<double>> old_vector );
+    explicit Matrix( vector<vector<double>> old_vector );
 
     /**
      * Destroy instance.
@@ -82,7 +90,7 @@ public:
      * @param col an int <= col_count
      * @param row an int <= row_count
      * @param val a double
-     * TODO @throws exception if row or col is <= 0
+     * TODO set_value @throws exception if row or col is <= 0
      * @return true if successful, else false
      */
     bool set_value( int col, int row, double val ) {};
@@ -91,7 +99,7 @@ public:
      * Get the value at the given column and row
      * @param col an int <= col_count
      * @param row an int <= row_count
-     * TODO @throws exception if any arg is <= 0
+     * TODO get_value @throws exception if any arg is <= 0
      * @return the indicated value
      */
     double get_value( int col, int row ) const;
@@ -211,7 +219,7 @@ public:
     * TODO @throws exception if the given matrix does not have the same number of rows as this has columns
     * @return true if successful, else false
     */
-    friend Matrix &operator*(const Matrix lhs, const Matrix &rhs );
+    friend Matrix operator*(const Matrix lhs, const Matrix &rhs );
 };
 
 
