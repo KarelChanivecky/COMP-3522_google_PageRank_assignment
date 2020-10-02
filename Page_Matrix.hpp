@@ -21,7 +21,7 @@
 using namespace std;
 
 class Page_Matrix : public Matrix {
-private:
+protected:
     vector<Page> pages;
 public:
     // TODO Page_Matrix.hpp ensure everything is full implemented
