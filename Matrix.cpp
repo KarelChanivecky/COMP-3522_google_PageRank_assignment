@@ -100,11 +100,11 @@ void Matrix::clear() {
 }
 
 int Matrix::get_col_count() const {
-    return 0;
+    return col_count;
 }
 
 int Matrix::get_row_count() const {
-    return 0;
+    return row_count;
 }
 
 Matrix &Matrix::operator++() {
