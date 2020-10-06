@@ -55,11 +55,11 @@ Matrix &Matrix::operator++( int ) {
     return <#initializer#>;
 }
 
-Matrix &Matrix::operator--() {
+Matrix &Matrix::operator--() { // TODO clint
     return *this;
 }
 
-Matrix &Matrix::operator--( int ) {
+Matrix &Matrix::operator--( int ) { // TODO clint
     return <#initializer#>;
 }
 
@@ -67,7 +67,7 @@ Matrix &Matrix::operator=( const Matrix rhs ) {
     return *this;
 }
 
-Matrix &Matrix::operator+=( const Matrix &rhs ) {
+Matrix &Matrix::operator+=( const Matrix &rhs ) { // TODO clint
     return *this;
 }
 
@@ -79,11 +79,11 @@ Matrix &Matrix::operator*=( double constant ) {
     return *this;
 }
 
-bool operator==( const Matrix &lhs, const Matrix &rhs ) {
+bool operator==( const Matrix &lhs, const Matrix &rhs ) { // TODO clint
     return false;
 }
 
-bool operator!=( const Matrix &lhs, const Matrix &rhs ) {
+bool operator!=( const Matrix &lhs, const Matrix &rhs ) { // TODO clint
     return false;
 }
 
@@ -95,6 +95,6 @@ Matrix operator-( Matrix lhs, const Matrix &rhs ) {
     return Matrix();
 }
 
-Matrix operator*( const Matrix lhs, const Matrix &rhs ) {
+Matrix operator*( const Matrix lhs, const Matrix &rhs ) { // TODO clint
     return Matrix();
 }
