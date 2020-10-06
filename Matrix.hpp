@@ -26,6 +26,10 @@ protected:
     int col_count;
     int row_count;
     vector<vector<double>> matrix;
+    friend void matrix_swap( Matrix &lhs, Matrix &rhs);
+    friend bool sizes_match(const Matrix & lhs, const Matrix &rhs) {
+        return lhs.col_count == rhs.col_count && lhs.row_count == rhs.row_count;
+    }
 public:
 
     /**
@@ -152,7 +156,7 @@ public:
      * Increment all values by 1.
      * @return the matrix after incrementing
      */
-    Matrix& operator++(int);
+    Matrix operator++(int);
 
     /**
      * Decrement all values by 1.

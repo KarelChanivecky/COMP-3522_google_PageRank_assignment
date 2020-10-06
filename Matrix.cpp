@@ -108,30 +108,47 @@ int Matrix::get_row_count() const {
 }
 
 Matrix &Matrix::operator++() {
+    vector<vector<double>>::iterator out_ptr;
+    for ( out_ptr = matrix.begin(); out_ptr < matrix.end(); out_ptr++ ) {
+        vector<double>::iterator in_ptr;
+        for (in_ptr = out_ptr->begin(); in_ptr < out_ptr->end(); in_ptr++) {
+            *in_ptr++;
+        }
+    }
     return *this;
 }
 
-Matrix &Matrix::operator++( int ) {
+Matrix Matrix::operator++( int ) {
+    Matrix temp(*this);
+    operator++();
+    return temp;
+}
+
+Matrix &Matrix::operator--() { // TODO clint
+    return *this;
+}
+
+Matrix &Matrix::operator--( int ) { // TODO clint
     return <#initializer#>;
 }
 
-Matrix &Matrix::operator--() {
+void matrix_swap( Matrix &lhs, Matrix &rhs ) {
+    swap(lhs.matrix, rhs.matrix);
+    swap(lhs.row_count, rhs.row_count);
+    swap(lhs.col_count, rhs.col_count);
+}
+
+Matrix &Matrix::operator=( Matrix rhs ) {
+    matrix_swap( *this, rhs );
     return *this;
 }
 
-Matrix &Matrix::operator--( int ) {
-    return <#initializer#>;
-}
-
-Matrix &Matrix::operator=( const Matrix rhs ) {
-    return *this;
-}
-
-Matrix &Matrix::operator+=( const Matrix &rhs ) {
+Matrix &Matrix::operator+=( const Matrix &rhs ) { // TODO clint
     return *this;
 }
 
 Matrix &Matrix::operator-=( const Matrix &rhs ) {
+
     return *this;
 }
 
@@ -139,11 +156,11 @@ Matrix &Matrix::operator*=( double constant ) {
     return *this;
 }
 
-bool operator==( const Matrix &lhs, const Matrix &rhs ) {
+bool operator==( const Matrix &lhs, const Matrix &rhs ) { // TODO clint
     return false;
 }
 
-bool operator!=( const Matrix &lhs, const Matrix &rhs ) {
+bool operator!=( const Matrix &lhs, const Matrix &rhs ) { // TODO clint
     return false;
 }
 
@@ -155,7 +172,7 @@ Matrix operator-( Matrix lhs, const Matrix &rhs ) {
     return Matrix();
 }
 
-Matrix operator*( const Matrix lhs, const Matrix &rhs ) {
+Matrix operator*( const Matrix lhs, const Matrix &rhs ) { // TODO clint
     return Matrix();
 }
 

@@ -1,2 +1,6 @@
 # Default ignored files
+/shelf/
 /workspace.xml
+# Datasource local storage ignored files
+/../../../../../../../../../../../../../:\Users\Karl_\OneDrive\School\BCIT\Courses\CST\term3\COMP-3522_OOP2\assignments\assignment1_v2\.idea/dataSources/
+/dataSources.local.xml
