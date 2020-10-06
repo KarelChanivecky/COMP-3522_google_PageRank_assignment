@@ -9,12 +9,18 @@
  * Assignment 1
  */
 
+#include <cstdlib>
+#include <exception>
 #include <cmath>
+#include <iostream>
+#include <stdexcept>
 #include "Matrix.hpp"
+
+using namespace std;
 
 Matrix::Matrix( int cols, int rows ): col_count(cols), row_count(rows) {
     if (cols <= 0 || rows <= 0) {
-        throw ("Values for columns and rows must be > 0");
+        throw std::invalid_argument("Values for columns and rows must be > 0");
     }
 
     for (int i = 0; i < rows; i++) {
@@ -32,7 +38,7 @@ Matrix::Matrix( vector<double> initial_values ) {
     double vectorSize = sqrt(initial_values.size());
 
     if (floor(vectorSize) != vectorSize) {
-        throw "Argument passed must have an integer square root\n";
+        throw std::invalid_argument("Argument must have an integer square root");
     }
 
     col_count = floor(vectorSize);
@@ -47,7 +53,6 @@ Matrix::Matrix( vector<double> initial_values ) {
 
         matrix.push_back(row);
     }
-
 }
 
 Matrix::Matrix( const Matrix &other_matrix ) {
@@ -59,15 +64,39 @@ Matrix::Matrix( vector<vector<double>> old_vector ) {
 }
 
 Matrix::~Matrix() {
+    cout << "Matrix destructor" << endl;
+}
 
+bool Matrix::set_value( int col, int row, double val ) {
+    if (col < 0 || row < 0) {
+        throw std::invalid_argument("column and row must be >= 0");
+    }
+
+    if (col > get_col_count() || row > get_row_count()) {
+        throw std::invalid_argument("column and row must not exceed matrix size");
+    }
+
+    matrix.at(row).at(col) = val;
 }
 
 double Matrix::get_value( int col, int row ) const {
-    return 0;
+    if (col < 0 || row < 0) {
+        throw std::invalid_argument("column and row must be >= 0");
+    }
+
+    if (col > get_col_count() || row > get_row_count()) {
+        throw std::invalid_argument("column and row must not exceed matrix size");
+    }
+
+    return matrix.at(row).at(col);
 }
 
 void Matrix::clear() {
-
+    for (int i = 0; i < row_count; i++) {
+        for (int j = 0; j < col_count; j++) {
+            matrix.at(i).at(j) = 0.0;
+        }
+    }
 }
 
 int Matrix::get_col_count() const {
@@ -182,3 +211,4 @@ Matrix operator-( Matrix lhs, const Matrix &rhs ) {
 Matrix operator*( const Matrix lhs, const Matrix &rhs ) { // TODO clint
     return Matrix();
 }
+
