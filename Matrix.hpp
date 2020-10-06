@@ -122,13 +122,13 @@ public:
      * Get the number of columns.
      * @return the number of columns
      */
-    int get_col_count() const;
+    int get_col_count () const {return col_count;};
 
     /**
      * Get the number of rows.
      * @return the number of rows
      */
-    int get_row_count() const;
+    int get_row_count() const {return row_count;};
 
     /**
      * Evaluate if the given matrices are equal.
@@ -168,7 +168,7 @@ public:
      * Decrement all values by 1.
      * @return the matrix before Decrementing
      */
-    Matrix& operator--(int);
+    Matrix operator--(int);
 
     /**
      * Create a copy of the given matrix and return it.
