@@ -124,12 +124,21 @@ Matrix Matrix::operator++( int ) {
     return temp;
 }
 
-Matrix &Matrix::operator--() { // TODO clint
+Matrix &Matrix::operator--() { //
+    for (int i = 0; i < get_row_count(); i++) {
+        for (int j = 0; j < get_col_count(); j++) {
+            matrix.at(i).at(j)--;
+        }
+    }
+
     return *this;
 }
 
-Matrix &Matrix::operator--( int ) { // TODO clint
-    return <#initializer#>;
+Matrix Matrix::operator--( int ) {
+    Matrix tmp(*this);
+    operator--();
+
+    return tmp;
 }
 
 void matrix_swap( Matrix &lhs, Matrix &rhs ) {
