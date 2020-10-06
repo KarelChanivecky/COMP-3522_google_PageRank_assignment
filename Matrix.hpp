@@ -95,7 +95,7 @@ public:
      * TODO set_value @throws exception if row or col is <= 0
      * @return true if successful, else false
      */
-    bool set_value( int col, int row, double val ) {};
+    bool set_value( int col, int row, double val );
 
     /**
      * Get the value at the given column and row
