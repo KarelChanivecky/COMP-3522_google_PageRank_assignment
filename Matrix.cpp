@@ -9,13 +9,44 @@
  * Assignment 1
  */
 
+#include <cmath>
 #include "Matrix.hpp"
 
-Matrix::Matrix( int cols, int rows ) {
+Matrix::Matrix( int cols, int rows ): col_count(cols), row_count(rows) {
+    if (cols <= 0 || rows <= 0) {
+        throw ("Values for columns and rows must be > 0");
+    }
 
+    for (int i = 0; i < rows; i++) {
+        vector<double> row;
+
+        for (int j = 0; j < cols; j++) {
+            row.push_back(DEFAULT_VAL);
+        }
+
+        matrix.push_back(row);
+    }
 }
 
 Matrix::Matrix( vector<double> initial_values ) {
+    double vectorSize = sqrt(initial_values.size());
+
+    if (floor(vectorSize) != vectorSize) {
+        throw "Argument passed must have an integer square root\n";
+    }
+
+    col_count = floor(vectorSize);
+    row_count = floor(vectorSize) ;
+
+    for (int i = 0; i < vectorSize; i++) {
+        vector<double> row;
+
+        for (int j = 0; j < vectorSize; j++) {
+            row.push_back(initial_values.at(i));
+        }
+
+        matrix.push_back(row);
+    }
 
 }
 
