@@ -40,15 +40,17 @@ public:
     /**
      * Construct an instance with equal number of rows and columns
      * @param square_size an int, the size of the sides
-     * TODO square contructor @throws exception if arg is <= 0
      */
-    explicit Matrix(const int square_size) : col_count(square_size), row_count(square_size) {};
+    explicit Matrix(const int square_size) : col_count(square_size), row_count(square_size) {
+        if (square_size <= 0) {
+            throw ("Values for columns and rows must be > 0");
+        }
+    };
 
     /**
      * Construct an instance with the passed size
      * @param cols the number of columns
      * @param rows the number of rows
-     * TODO consturctor col, rows @throws exception if any arg is <= 0
      */
     Matrix( int cols, int rows );
 
