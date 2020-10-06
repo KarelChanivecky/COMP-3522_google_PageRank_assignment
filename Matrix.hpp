@@ -26,10 +26,7 @@ protected:
     int col_count;
     int row_count;
     vector<vector<double>> matrix;
-    friend void matrix_swap( Matrix &lhs, Matrix &rhs);
-    friend bool sizes_match(const Matrix & lhs, const Matrix &rhs) {
-        return lhs.col_count == rhs.col_count && lhs.row_count == rhs.row_count;
-    }
+    friend void matrix_swap( Matrix &lhs, Matrix &rhs); // outer are cols, inner rows
 public:
 
     /**
@@ -220,12 +217,30 @@ public:
     Matrix &operator*=( double constant );
 
     /**
+     * Multiply by another matrix by placing it to the left.
+     * @param that another matrix that has the same number of rows as this has columns
+     * @throws exception if the requirement for that is not met
+     * @return the value of this after the multiplication
+     */
+    Matrix &operator*=(const Matrix &that);
+
+    /**
     * Perform matrix multiplication.
     * @param rhs a Matrix
     * TODO @throws exception if the given matrix does not have the same number of rows as this has columns
     * @return true if successful, else false
     */
     friend Matrix operator*(const Matrix lhs, const Matrix &rhs );
+
+    /**
+     * Evaluate if two matrices have the same size
+     * @param lhs a Matrix
+     * @param rhs a Matrix
+     * @return true if both have the same number of rows and the same number of columns
+     */
+    friend bool sizes_match(const Matrix & lhs, const Matrix &rhs) {
+        return lhs.col_count == rhs.col_count && lhs.row_count == rhs.row_count;
+    }
 };
 
 

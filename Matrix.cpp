@@ -148,12 +148,46 @@ Matrix &Matrix::operator+=( const Matrix &rhs ) { // TODO clint
     return *this;
 }
 
-Matrix &Matrix::operator-=( const Matrix &rhs ) {
-
+Matrix &Matrix::operator-=(const Matrix &that ) {
+    if (!sizes_match(*this, that)) {
+        throw "Cannot perform subtraction. Sizes do not match!";
+    }
+    for ( int col = 0; col < col_count; ++col ) {
+        for ( int row = 0; row < row_count; ++row ) {
+            set_value(col, row, get_value(col, row) - that.get_value(col, row));
+        }
+    }
     return *this;
 }
 
 Matrix &Matrix::operator*=( double constant ) {
+    vector<vector<double>>::iterator out_ptr;
+    for ( out_ptr = matrix.begin(); out_ptr < matrix.end(); out_ptr++ ) {
+        vector<double>::iterator in_ptr;
+        for (in_ptr = out_ptr->begin(); in_ptr < out_ptr->end(); in_ptr++) {
+            *in_ptr *= constant;
+        }
+    }
+    return *this;
+}
+
+Matrix &Matrix::operator*=( const Matrix &that ) {
+    if (that.row_count != this->col_count) {
+        throw "Matrix multiplication error! incorrect sizes!";
+    }
+    vector<vector<double>> result;
+    int result_col_count = that.col_count;
+    int result_row_count = that.row_count;
+    for ( int res_row = 0; res_row < result_row_count; res_row++) {
+        for ( int res_col = 0; res_col < result_col_count; res_col++) {
+            for (int dot_index = 0; dot_index < this->row_count; dot_index++) {
+                result[res_col][res_row] += matrix[dot_index][res_row] * that.matrix[res_col][dot_index];
+            }
+        }
+    }
+    matrix = result;
+    col_count = result_col_count;
+    row_count = result_row_count;
     return *this;
 }
 
@@ -166,11 +200,13 @@ bool operator!=( const Matrix &lhs, const Matrix &rhs ) { // TODO clint
 }
 
 Matrix operator+( Matrix lhs, const Matrix &rhs ) {
-    return Matrix();
+    lhs += rhs;
+    return lhs;
 }
 
 Matrix operator-( Matrix lhs, const Matrix &rhs ) {
-    return Matrix();
+    lhs -= rhs;
+    return lhs;
 }
 
 Matrix operator*( const Matrix lhs, const Matrix &rhs ) { // TODO clint
