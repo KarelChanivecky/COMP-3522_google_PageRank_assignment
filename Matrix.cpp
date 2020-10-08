@@ -193,12 +193,29 @@ Matrix &Matrix::operator*=( const Matrix &that ) {
     return *this;
 }
 
-bool operator==( const Matrix &lhs, const Matrix &rhs ) { // TODO clint
-    return false;
+bool operator==( const Matrix &lhs, const Matrix &rhs ) {
+    double threshold = 0.001;
+
+    if (! sizes_match(lhs, rhs)) {
+        return false;
+    }
+
+    for ( int col = 0; col < lhs.get_col_count(); ++col ) {
+        for ( int row = 0; row < lhs.get_row_count(); ++row ) {
+            double lhValue = lhs.get_value(col, row);
+            double rhValue = rhs.get_value(col, row);
+
+            if (! Matrix::compare(lhValue, rhValue, threshold)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
-bool operator!=( const Matrix &lhs, const Matrix &rhs ) { // TODO clint
-    return false;
+bool operator!=( const Matrix &lhs, const Matrix &rhs ) {
+    return ! operator==(lhs, rhs);
 }
 
 Matrix operator+( Matrix lhs, const Matrix &rhs ) {
@@ -213,5 +230,9 @@ Matrix operator-( Matrix lhs, const Matrix &rhs ) {
 
 Matrix operator*( const Matrix lhs, const Matrix &rhs ) { // TODO clint
     return Matrix();
+}
+
+bool Matrix::compare(const double a, const double b, const double epsilon){
+    return fabs(a - b) <= epsilon;
 }
 

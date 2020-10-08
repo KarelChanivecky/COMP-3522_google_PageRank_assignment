@@ -18,6 +18,17 @@
 using namespace std;
 
 class Matrix {
+private:
+private:
+    /**
+     * Compares two doubles against a threshold.
+     *
+     * @param a double
+     * @param b double
+     * @param epsilon double, the threshold within which equality is determined
+     * @return bool
+     */
+    static bool compare(double a, double b, double epsilon = 1.0f);
 protected:
     static constexpr double DEFAULT_VAL{ 0.0 };
     static constexpr int DEFAULT_SIZE{ 1 };
