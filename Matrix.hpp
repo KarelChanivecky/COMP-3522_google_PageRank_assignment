@@ -20,19 +20,25 @@ using namespace std;
 class Matrix {
 private:
 private:
-    /**
+    /*
      * Compares two doubles against a threshold.
-     *
-     * @param a double
-     * @param b double
-     * @param epsilon double, the threshold within which equality is determined
-     * @return bool
      */
-    static bool compare(double a, double b, double epsilon = 1.0f);
+    static bool compare(double a, double b, double epsilon = FLOAT_TOLERANCE);
+
+    /*
+     * Increments every value in a Matrix by 1 or -1.
+     */
+    Matrix& matrixIncrement(const Matrix &operand, bool operationIsAddition);
+
+    /*
+     * Performs an addition or subtraction operation between this matrix and another.
+     */
+    Matrix& matrixIncrementByAMatrix(const Matrix &operand, bool operationIsAddition);
 protected:
     static constexpr double DEFAULT_VAL{ 0.0 };
     static constexpr int DEFAULT_SIZE{ 1 };
-    static constexpr double FLOAT_TOLERANCE{ 1.0 };
+    static constexpr double FLOAT_TOLERANCE{ 0.001f };
+    static constexpr double MINIMUM_VALUE {0.0};
 
     int col_count;
     int row_count;

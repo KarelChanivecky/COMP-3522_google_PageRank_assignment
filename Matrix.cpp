@@ -68,7 +68,7 @@ Matrix::~Matrix() {
 }
 
 bool Matrix::set_value( int col, int row, double val ) {
-    if (col < 0 || row < 0) {
+    if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
         throw std::invalid_argument("column and row must be >= 0");
     }
 
@@ -80,7 +80,7 @@ bool Matrix::set_value( int col, int row, double val ) {
 }
 
 double Matrix::get_value( int col, int row ) const {
-    if (col < 0 || row < 0) {
+    if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
         throw std::invalid_argument("column and row must be >= 0");
     }
 
@@ -99,15 +99,24 @@ void Matrix::clear() {
     }
 }
 
-Matrix &Matrix::operator++() {
-    vector<vector<double>>::iterator out_ptr;
-    for ( out_ptr = matrix.begin(); out_ptr < matrix.end(); out_ptr++ ) {
-        vector<double>::iterator in_ptr;
-        for (in_ptr = out_ptr->begin(); in_ptr < out_ptr->end(); in_ptr++) {
-            *in_ptr++;
+Matrix &Matrix::matrixIncrement(const Matrix &operand, const bool operationIsAddition) { //TODO: establish behaviour for a decrement to < 0
+    const int amount = operationIsAddition ? 1 : -1;
+
+    for ( int col = 0; col < col_count; ++col ) {
+        for ( int row = 0; row < row_count; ++row ) {
+            set_value(col, row, get_value(col, row) + amount);
+            double currentValue = get_value(col, row);
+
+            if (!operationIsAddition) {
+                currentValue < 0 ? set_value(col, row, Matrix::MINIMUM_VALUE) : set_value(row, col, (currentValue + 0));
+            }
         }
     }
     return *this;
+}
+
+Matrix &Matrix::operator++() {
+    return matrixIncrement(*this, true);
 }
 
 Matrix Matrix::operator++( int ) {
@@ -116,16 +125,8 @@ Matrix Matrix::operator++( int ) {
     return temp;
 }
 
-Matrix &Matrix::operator--() {
-    for (int i = 0; i < get_col_count(); i++) {
-        for (int j = 0; j < get_row_count(); j++) {
-            double currentValue = get_value(i, j);
-
-            currentValue == 1.0 ? set_value(i, j, (currentValue - 1)) : set_value(i, j, (currentValue - 0));
-        }
-    }
-
-    return *this;
+Matrix &Matrix::operator--() { //TODO: establish behaviour for a decrement to < 0
+    return matrixIncrement(*this, false);
 }
 
 Matrix Matrix::operator--( int ) {
@@ -146,17 +147,23 @@ Matrix &Matrix::operator=( Matrix rhs ) {
     return *this;
 }
 
-Matrix &Matrix::operator+=( const Matrix &rhs ) { // TODO clint
-    return *this;
+Matrix &Matrix::operator+=( const Matrix &rhs ) {
+   return matrixIncrementByAMatrix(rhs, true);
 }
 
-Matrix &Matrix::operator-=(const Matrix &that ) {
-    if (!sizes_match(*this, that)) {
-        throw "Cannot perform subtraction. Sizes do not match!";
+Matrix &Matrix::operator-=(const Matrix &that ) { //TODO: establish behaviour for a decrement to < 0
+    return matrixIncrementByAMatrix(that, false);
+}
+
+Matrix &Matrix::matrixIncrementByAMatrix(const Matrix &operand, const bool operationIsAddition) {  //TODO: establish behaviour for a decrement to < 0
+    const int factor = operationIsAddition ? 1 : -1;
+
+    if (!sizes_match(*this, operand)) {
+        throw invalid_argument("Cannot perform operation: size mismatch");
     }
     for ( int col = 0; col < col_count; ++col ) {
         for ( int row = 0; row < row_count; ++row ) {
-            set_value(col, row, get_value(col, row) - that.get_value(col, row));
+            set_value(col, row, get_value(col, row) + (factor * operand.get_value(col, row)));
         }
     }
     return *this;
@@ -194,8 +201,6 @@ Matrix &Matrix::operator*=( const Matrix &that ) {
 }
 
 bool operator==( const Matrix &lhs, const Matrix &rhs ) {
-    double threshold = 0.001;
-
     if (! sizes_match(lhs, rhs)) {
         return false;
     }
@@ -205,7 +210,7 @@ bool operator==( const Matrix &lhs, const Matrix &rhs ) {
             double lhValue = lhs.get_value(col, row);
             double rhValue = rhs.get_value(col, row);
 
-            if (! Matrix::compare(lhValue, rhValue, threshold)) {
+            if (! Matrix::compare(lhValue, rhValue, Matrix::FLOAT_TOLERANCE)) {
                 return false;
             }
         }
@@ -223,7 +228,7 @@ Matrix operator+( Matrix lhs, const Matrix &rhs ) {
     return lhs;
 }
 
-Matrix operator-( Matrix lhs, const Matrix &rhs ) {
+Matrix operator-( Matrix lhs, const Matrix &rhs ) { //TODO: establish behaviour for a decrement to < 0
     lhs -= rhs;
     return lhs;
 }
