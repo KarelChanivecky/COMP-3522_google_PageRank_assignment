@@ -116,10 +116,12 @@ Matrix Matrix::operator++( int ) {
     return temp;
 }
 
-Matrix &Matrix::operator--() { //
-    for (int i = 0; i < get_row_count(); i++) {
-        for (int j = 0; j < get_col_count(); j++) {
-            matrix.at(i).at(j)--;
+Matrix &Matrix::operator--() {
+    for (int i = 0; i < get_col_count(); i++) {
+        for (int j = 0; j < get_row_count(); j++) {
+            double currentValue = get_value(i, j);
+
+            currentValue == 1.0 ? set_value(i, j, (currentValue - 1)) : set_value(i, j, (currentValue - 0));
         }
     }
 
@@ -127,7 +129,7 @@ Matrix &Matrix::operator--() { //
 }
 
 Matrix Matrix::operator--( int ) {
-    Matrix tmp(*this);
+    const Matrix tmp(*this);
     operator--();
 
     return tmp;
