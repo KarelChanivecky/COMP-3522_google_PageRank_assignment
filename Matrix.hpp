@@ -61,7 +61,7 @@ public:
      */
     explicit Matrix(const int square_size) : col_count(square_size), row_count(square_size) {
         if (square_size <= 0) {
-            throw ("Values for columns and rows must be > 0");
+            throw  ("Values for columns and rows must be > 0");
         }
     };
 
@@ -84,7 +84,7 @@ public:
      * 2  2  2
      *
      * @param initial_values a vector<double> the initial values to populate
-     * TODO constructor 1d vector @throws exception if size of arg does not have an integer square root
+     * @throws exception if size of arg does not have an integer square root
      */
     explicit Matrix(vector<double>  initial_values);
 
@@ -110,7 +110,7 @@ public:
      * @param col an int <= col_count
      * @param row an int <= row_count
      * @param val a double
-     * TODO set_value @throws exception if row or col is <= 0
+     * @throws exception if row or col is <= 0
      * @return true if successful, else false
      */
     bool set_value( int col, int row, double val );
@@ -119,7 +119,7 @@ public:
      * Get the value at the given column and row
      * @param col an int <= col_count
      * @param row an int <= row_count
-     * TODO get_value @throws exception if any arg is <= 0
+     * @throws exception if any arg is <= 0
      * @return the indicated value
      */
     double get_value( int col, int row ) const;
@@ -194,7 +194,7 @@ public:
     /**
      * Increment values by performing matrix addition.
      * @param rhs a Matrix, the matrix to add
-     * TODO @throws exception if the given matrix is not the same size as this
+     * @throws exception if the given matrix is not the same size as this
      * @return this matrix after the addition
      */
     Matrix& operator+=(const Matrix& rhs);
@@ -203,7 +203,7 @@ public:
      * Perform matrix addition without incrementing the values.
      * @param rhs the matrix to add
      * @param lhs this matrix
-     * TODO @throws exception if the given matrix is not the same size as this
+     * @throws exception if the given matrix is not the same size as this
      * @return the result of the matrix addition
      */
     friend Matrix operator+(Matrix lhs, const Matrix& rhs);
@@ -211,7 +211,7 @@ public:
     /**
      * Increment values by performing matrix subtraction.
      * @param rhs a Matrix, the matrix to subtract
-     * TODO @throws exception if the given matrix is not the same size as this
+     * @throws exception if the given matrix is not the same size as this
      * @return this matrix after the subtraction
      */
     Matrix& operator-=(const Matrix& rhs);
@@ -220,7 +220,7 @@ public:
      * Perform matrix subtraction without decrementing the values.
      * @param rhs the matrix to subtract
      * @param lhs this matrix
-     * TODO @throws exception if the given matrix is not the same size as this
+     * @throws exception if the given matrix is not the same size as this
      * @return the result of the matrix subtraction
      */
     friend Matrix operator-(Matrix lhs, const Matrix& rhs);
@@ -228,7 +228,7 @@ public:
     /**
      * Multiply by constant.
      * @param constant a double
-     * TODO @throws exception if the given matrix does not have the same number of rows as this has columns
+     * @throws exception if the given matrix does not have the same number of rows as this has columns
      * @return true if successful, else false
      */
     Matrix &operator*=( double constant );
@@ -244,7 +244,7 @@ public:
     /**
     * Perform matrix multiplication.
     * @param rhs a Matrix
-    * TODO @throws exception if the given matrix does not have the same number of rows as this has columns
+    * @throws exception if the given matrix does not have the same number of rows as this has columns
     * @return true if successful, else false
     */
     friend Matrix operator*(Matrix lhs, const Matrix &rhs );

@@ -9,7 +9,6 @@
  * Assignment 1
  */
 
-#include <cstdlib>
 #include <exception>
 #include <cmath>
 #include <iostream>
@@ -185,7 +184,7 @@ Matrix &Matrix::operator*=( double constant ) {
 
 Matrix &Matrix::operator*=( const Matrix &that ) {
     if (that.row_count != this->col_count) {
-        throw "Matrix multiplication error! incorrect sizes!";
+        throw invalid_argument("Matrix multiplication error! incorrect sizes!");
     }
     vector<vector<double>> result;
     int result_col_count = that.col_count;
