@@ -13,6 +13,7 @@
 #define ASSIGNMENT1_V2_STOCHASTIC_MATRIX_HPP
 
 
+#include <stdexcept>
 #include "Page_Matrix.hpp"
 #include "Connectivity_Matrix.hpp"
 
@@ -20,7 +21,27 @@ using namespace std;
 
 class Stochastic_Matrix : public Page_Matrix {
 private:
-    // TODO Stochastic_Matrix.hpp a bunch of private methods that do all the calculations
+    /**
+     * Get the value to assign to every column connection.
+     * @param col the column to evaluate
+     * @return the value to assign to every column connection
+     */
+    double get_col_val(const int col) const;
+
+    /**
+     * Assign value to every connection in column
+     * @param col the column to process
+     * @param val the value to assign
+     */
+    void assign_col_val(const int col, const double val);
+
+    /**
+     * Assign the value to every element in column.
+     * @param col the column to process
+     * @param val the value to assign
+     */
+    void assign_no_link_col_val(const int col, const double val);
+    void normalize();
 public:
 
     /**

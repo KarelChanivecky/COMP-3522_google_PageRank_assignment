@@ -58,6 +58,11 @@ public:
      */
     vector<Page> get_links() const { return linked_pages; };
 
+    /**
+     * Add a new page.
+     * @param page a Page to add
+     */
+    void add_link(Page &page) { linked_pages.push_back(page); }
 
     /**
      * Determine if the Page is a wildcard.
@@ -71,7 +76,7 @@ public:
      * @param rhs a Page
      * @return true if equal, else false
      */
-    friend bool operator==(const Page &lhs, const Page &rhs);
+    friend bool operator==( const Page &lhs, int rhs);
 
     /**
      * Evaluate if two given pages are not equal

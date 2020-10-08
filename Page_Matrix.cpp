@@ -19,7 +19,7 @@ Page_Matrix::Page_Matrix( const Page_Matrix &to_copy ) : Matrix(to_copy.pages.si
     }
 }
 
-Page_Matrix::Page_Matrix( vector<Page> &new_pages )  : Matrix(new_pages.size(), new_pages.size()){
+Page_Matrix::Page_Matrix( const vector<Page> &new_pages )  : Matrix(new_pages.size(), new_pages.size()){
     for (const auto & page : new_pages) {
         pages.push_back(page);
     }

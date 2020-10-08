@@ -12,7 +12,7 @@
 
 #include "Page.hpp"
 
-bool operator==( const Page &lhs, const Page &rhs ) {
+bool operator==( const Page &lhs, int rhs ) {
     if (lhs.name != rhs.name || lhs.wildcard != rhs.wildcard || lhs.linked_pages.size() != rhs.linked_pages.size()) {
         return false;
     }

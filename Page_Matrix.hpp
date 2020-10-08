@@ -24,7 +24,6 @@ class Page_Matrix : public Matrix {
 protected:
     vector<Page> pages;
 public:
-    // TODO Page_Matrix.hpp ensure everything is full implemented
     /**
      * Default constructor
      */
@@ -44,7 +43,7 @@ public:
      *
      * @param new_pages the pages to be associated with the matrix
      */
-    explicit Page_Matrix(vector<Page> &new_pages);
+    explicit Page_Matrix(const vector<Page> &new_pages);
 
     /**
      * Construct a copy.
