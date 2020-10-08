@@ -247,7 +247,7 @@ public:
     * TODO @throws exception if the given matrix does not have the same number of rows as this has columns
     * @return true if successful, else false
     */
-    friend Matrix operator*(const Matrix lhs, const Matrix &rhs );
+    friend Matrix operator*(Matrix lhs, const Matrix &rhs );
 
     /**
      * Evaluate if two matrices have the same size

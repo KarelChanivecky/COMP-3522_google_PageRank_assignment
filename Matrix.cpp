@@ -55,11 +55,11 @@ Matrix::Matrix( vector<double> initial_values ) {
     }
 }
 
-Matrix::Matrix( const Matrix &other_matrix ) {
+Matrix::Matrix( const Matrix &other_matrix ) { //Todo
 
 }
 
-Matrix::Matrix( vector<vector<double>> old_vector ) {
+Matrix::Matrix( vector<vector<double>> old_vector ) { //Todo
 
 }
 
@@ -99,7 +99,7 @@ void Matrix::clear() {
     }
 }
 
-Matrix &Matrix::matrixIncrement(const Matrix &operand, const bool operationIsAddition) { //TODO: establish behaviour for a decrement to < 0
+Matrix &Matrix::matrixIncrement(const Matrix &operand, const bool operationIsAddition) {
     const int amount = operationIsAddition ? 1 : -1;
 
     for ( int col = 0; col < col_count; ++col ) {
@@ -107,8 +107,8 @@ Matrix &Matrix::matrixIncrement(const Matrix &operand, const bool operationIsAdd
             set_value(col, row, get_value(col, row) + amount);
             double currentValue = get_value(col, row);
 
-            if (!operationIsAddition) {
-                currentValue < 0 ? set_value(col, row, Matrix::MINIMUM_VALUE) : set_value(row, col, (currentValue + 0));
+            if (!operationIsAddition && currentValue < MINIMUM_VALUE) {
+                set_value(col, row, Matrix::MINIMUM_VALUE);
             }
         }
     }
@@ -125,7 +125,7 @@ Matrix Matrix::operator++( int ) {
     return temp;
 }
 
-Matrix &Matrix::operator--() { //TODO: establish behaviour for a decrement to < 0
+Matrix &Matrix::operator--() {
     return matrixIncrement(*this, false);
 }
 
@@ -151,11 +151,11 @@ Matrix &Matrix::operator+=( const Matrix &rhs ) {
    return matrixIncrementByAMatrix(rhs, true);
 }
 
-Matrix &Matrix::operator-=(const Matrix &that ) { //TODO: establish behaviour for a decrement to < 0
+Matrix &Matrix::operator-=(const Matrix &that ) {
     return matrixIncrementByAMatrix(that, false);
 }
 
-Matrix &Matrix::matrixIncrementByAMatrix(const Matrix &operand, const bool operationIsAddition) {  //TODO: establish behaviour for a decrement to < 0
+Matrix &Matrix::matrixIncrementByAMatrix(const Matrix &operand, const bool operationIsAddition) {
     const int factor = operationIsAddition ? 1 : -1;
 
     if (!sizes_match(*this, operand)) {
@@ -164,6 +164,9 @@ Matrix &Matrix::matrixIncrementByAMatrix(const Matrix &operand, const bool opera
     for ( int col = 0; col < col_count; ++col ) {
         for ( int row = 0; row < row_count; ++row ) {
             set_value(col, row, get_value(col, row) + (factor * operand.get_value(col, row)));
+            if (get_value(col, row) < MINIMUM_VALUE) {
+                set_value(col, row, MINIMUM_VALUE);
+            }
         }
     }
     return *this;
@@ -228,13 +231,14 @@ Matrix operator+( Matrix lhs, const Matrix &rhs ) {
     return lhs;
 }
 
-Matrix operator-( Matrix lhs, const Matrix &rhs ) { //TODO: establish behaviour for a decrement to < 0
+Matrix operator-( Matrix lhs, const Matrix &rhs ) {
     lhs -= rhs;
     return lhs;
 }
 
-Matrix operator*( const Matrix lhs, const Matrix &rhs ) { // TODO clint
-    return Matrix();
+Matrix operator*( Matrix lhs, const Matrix &rhs ) {
+    lhs *= rhs;
+    return lhs;
 }
 
 bool Matrix::compare(const double a, const double b, const double epsilon){
