@@ -44,7 +44,7 @@ public:
      *
      * @param new_pages the pages to be associated with the matrix
      */
-    explicit Page_Matrix(vector<Page> &new_pages) : pages{move(new_pages)} {}
+    explicit Page_Matrix(vector<Page> &new_pages);
 
     /**
      * Construct a copy.
@@ -62,7 +62,7 @@ public:
      * Get the value matrix.
      * @return the value matrix
      */
-    Matrix get_matrix() const { return matrix; }
+    vector<vector<double>> get_matrix() const { return matrix; }
 };
 
 

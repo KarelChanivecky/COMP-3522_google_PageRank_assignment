@@ -13,6 +13,14 @@
 #include "Page_Matrix.hpp"
 
 
-Page_Matrix::Page_Matrix( const Page_Matrix &to_copy ) {
+Page_Matrix::Page_Matrix( const Page_Matrix &to_copy ) : Matrix(to_copy.pages.size(), to_copy.pages.size()){
+    for (const auto & page : to_copy.pages) {
+        pages.push_back(page);
+    }
+}
 
+Page_Matrix::Page_Matrix( vector<Page> &new_pages )  : Matrix(new_pages.size(), new_pages.size()){
+    for (const auto & page : new_pages) {
+        pages.push_back(page);
+    }
 }
