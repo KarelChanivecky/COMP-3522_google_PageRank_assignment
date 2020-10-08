@@ -99,6 +99,14 @@ void Matrix::clear() {
     }
 }
 
+int Matrix::get_col_count() const {
+    return col_count;
+}
+
+int Matrix::get_row_count() const {
+    return row_count;
+}
+
 Matrix &Matrix::operator++() {
     vector<vector<double>>::iterator out_ptr;
     for ( out_ptr = matrix.begin(); out_ptr < matrix.end(); out_ptr++ ) {
