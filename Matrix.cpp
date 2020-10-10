@@ -37,11 +37,11 @@ Matrix::Matrix( const vector<double>& initial_values ) {
     double rowSize = sqrt(initial_values.size());
 
     if (floor(rowSize) != rowSize) {
-        throw std::invalid_argument("Argument must have an integer square root");
+        throw std::invalid_argument("Vector size must have an integer square root");
     }
 
     col_count = floor(rowSize);
-    row_count = floor(rowSize) ;
+    row_count = floor(rowSize);
 
     /*e.g. [5, 7, 10, 20], n = 4
      *
@@ -56,14 +56,19 @@ Matrix::Matrix( const vector<double>& initial_values ) {
      *
      */
 
-    for (double initial_value : initial_values) {
-        vector<double> row;
+    vector<double> row;
 
-        for (int j = 0; j < rowSize; j++) {
-            row.push_back(initial_value);
+    for (double value : initial_values) {
+        if (value < 0) {
+            throw std::invalid_argument("Matrix values must be >= 0");
         }
 
-        matrix.push_back(row);
+        if (row.size() == rowSize) {
+            matrix.push_back(row);
+            row.clear();
+        }
+
+        row.push_back(value);
     }
 }
 
