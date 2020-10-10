@@ -16,13 +16,12 @@
 #include <vector>
 #include <string>
 #include "Matrix.hpp"
-#include "Page.hpp"
 
 using namespace std;
 
 class Page_Matrix : public Matrix {
 protected:
-    vector<Page> pages;
+    vector<string> pages;
 public:
     /**
      * Default constructor
@@ -43,7 +42,7 @@ public:
      *
      * @param new_pages the pages to be associated with the matrix
      */
-    explicit Page_Matrix(const vector<Page> &new_pages);
+    explicit Page_Matrix(const vector<string> &new_pages);
 
     /**
      * Construct a copy.
@@ -55,7 +54,7 @@ public:
      * Get the pages associated with the matrix.
      * @return the pages associated with the matrix
      */
-    vector<Page> get_pages() const { return pages; }
+    vector<string> get_pages() const { return pages; }
 
     /**
      * Get the value matrix.

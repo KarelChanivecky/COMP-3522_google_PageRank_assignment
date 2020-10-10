@@ -14,7 +14,6 @@
 #define ASSIGNMENT1_V2_CONNECTIVITY_MATRIX_HPP
 
 #include <vector>
-#include "Page.hpp"
 #include "Page_Matrix.hpp"
 
 using namespace std;
@@ -39,13 +38,13 @@ public:
      *
      * @param pages The pages to be associated with rows and columns of the matrix
      */
-    Connectivity_Matrix(vector<Page> &pages);
+    Connectivity_Matrix(vector<string> &pages);
 
     /**
      * Get the pages associated with rows and columns of the matrix.
      * @return the pages associated with rows and columns of the matrix.
      */
-    vector<Page> get_pages() const { return pages; }
+    vector<string> get_pages() const { return pages; }
 };
 
 

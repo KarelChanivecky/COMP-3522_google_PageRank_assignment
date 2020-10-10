@@ -12,6 +12,6 @@
 
 #include "Connectivity_Matrix.hpp"
 
-Connectivity_Matrix::Connectivity_Matrix( vector<Page> &pages ) {
+Connectivity_Matrix::Connectivity_Matrix( vector<string> &pages ) {
 
 }
