@@ -20,6 +20,7 @@ Page_Matrix(connectivity_matrix.get_pages()){
             matrix[i][j] = to_copy[i][j];
         }
     }
+    normalize();
 }
 
 

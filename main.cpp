@@ -13,12 +13,12 @@ using namespace std;
 
 
 void driver() {
-    vector<int> * connections = get_connections(( string & ) DEFAULT_FILENAME );
+    vector<double> * connections = get_connections(( string & ) DEFAULT_FILENAME );
     vector<string> * pages = assemble_pages(*connections);
-    Connectivity_Matrix conn_matrix{*pages};
+    Connectivity_Matrix conn_matrix{*connections, *pages};
     Stochastic_Matrix sto_matrix{conn_matrix};
-    Page_Matrix * ranks = rank_pages(sto_matrix);
-    cout << ranks << endl;
+    Matrix * ranks = rank_pages(sto_matrix);
+    cout << *ranks << endl;
     delete connections;
     delete pages;
     delete ranks;
