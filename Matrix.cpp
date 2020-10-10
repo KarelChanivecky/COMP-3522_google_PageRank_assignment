@@ -1,7 +1,10 @@
 /**
  * 10/1/2020
- * Created by Karel Chanivecky Garcia.
+ * Created by
+ * Karel Chanivecky Garcia.
  * A01052674
+ *
+ * Clinton Fernandez
  *
  * BCIT CST COMP-3522
  * Set O Datacomm
