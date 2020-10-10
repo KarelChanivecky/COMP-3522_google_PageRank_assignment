@@ -19,7 +19,6 @@ using namespace std;
 
 class Matrix {
 private:
-private:
     /*
      * Compares two doubles against a threshold.
      */
@@ -86,7 +85,7 @@ public:
      * @param initial_values a vector<double> the initial values to populate
      * @throws exception if size of arg does not have an integer square root
      */
-    explicit Matrix(vector<double>  initial_values);
+    explicit Matrix(const vector<double>&  initial_values);
 
     /**
      * Construct an instance by copying a given matrix.
@@ -123,8 +122,6 @@ public:
      * @return the indicated value
      */
     double get_value( int col, int row ) const;
-
-
 
     /**
      * Set all of the values in the matrix to DEFAULT_VALUE

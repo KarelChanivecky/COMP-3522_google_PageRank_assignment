@@ -33,29 +33,48 @@ Matrix::Matrix( int cols, int rows ): col_count(cols), row_count(rows) {
     }
 }
 
-Matrix::Matrix( vector<double> initial_values ) {
-    double vectorSize = sqrt(initial_values.size());
+Matrix::Matrix( const vector<double>& initial_values ) {
+    double rowSize = sqrt(initial_values.size());
 
-    if (floor(vectorSize) != vectorSize) {
+    if (floor(rowSize) != rowSize) {
         throw std::invalid_argument("Argument must have an integer square root");
     }
 
-    col_count = floor(vectorSize);
-    row_count = floor(vectorSize) ;
+    col_count = floor(rowSize);
+    row_count = floor(rowSize) ;
 
-    for (int i = 0; i < vectorSize; i++) {
+    /*e.g. [5, 7, 10, 20], n = 4
+     *
+     * ==>  05 07
+     *      10 20
+     *
+     *e.g. [6, 10, 27, 29, 30, 66, 77, 88, 99], n = 9
+     *
+     * =>   06 10 27
+     *      29 30 66
+     *      77 88 99
+     *
+     */
+
+    for (double initial_value : initial_values) {
         vector<double> row;
 
-        for (int j = 0; j < vectorSize; j++) {
-            row.push_back(initial_values.at(i));
+        for (int j = 0; j < rowSize; j++) {
+            row.push_back(initial_value);
         }
 
         matrix.push_back(row);
     }
 }
 
-Matrix::Matrix( const Matrix &other_matrix ) { //Todo
+Matrix::Matrix( const Matrix &matrixToCopy ): col_count(matrixToCopy.get_col_count()), row_count(matrixToCopy.get_row_count()) {
+    for (int col = 0; col < matrixToCopy.get_col_count(); col++) {
+        for (int row = 0; row < matrixToCopy.get_row_count(); row++) {
+            double value = matrixToCopy.get_value(col, row);
 
+            set_value(col, row, value);
+        }
+    }
 }
 
 Matrix::Matrix( vector<vector<double>> old_vector ) { //Todo
