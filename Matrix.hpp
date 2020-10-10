@@ -60,7 +60,7 @@ public:
      */
     explicit Matrix(const int square_size) : col_count(square_size), row_count(square_size) {
         if (square_size <= 0) {
-            throw  ("Values for columns and rows must be > 0");
+            throw  invalid_argument("Values for columns and rows must be > 0");
         }
     };
 

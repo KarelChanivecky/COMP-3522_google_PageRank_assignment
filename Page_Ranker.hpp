@@ -25,14 +25,14 @@ using namespace std;
  * @param filename the name of the file to read connections from
  * @return a vector of int representing connections
  */
-vector<int> * get_connections(string &filename);
+vector<double> * get_connections(string &filename);
 
 /**
  * Assemble pages.
  * @param connections the connections to assemble pages from
  * @return a vector of string
  */
-vector<string> * assemble_pages(vector<int> &connections);
+vector<string> * assemble_pages(vector<double> &connections);
 
 /**
  * Get a Page_Matrix where the values are the rank of the respective pages

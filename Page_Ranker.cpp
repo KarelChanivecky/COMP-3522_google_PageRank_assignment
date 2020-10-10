@@ -20,14 +20,13 @@
 
 
 constexpr int INITIAL_PAGE_NAME = 'A';
-constexpr int CONNECTED = 1;
 
 /**
  * Read connections from file.
  * @param filename the name of the file to read connections from
  * @return a vector of int representing connections
  */
-vector<int> * get_connections(string &filename) {
+vector<double> * get_connections(string &filename) {
     string line;
     ifstream src{filename};
     auto connections = new vector<int>;
@@ -52,7 +51,7 @@ vector<int> * get_connections(string &filename) {
  * @param connections the connections to assemble pages from
  * @return a vector of string
  */
-vector<string> * assemble_pages(vector<int> &connections) {
+vector<string> * assemble_pages(vector<double> &connections) {
     double number_of_pages = sqrt(connections.size());
     if ((number_of_pages - (int) number_of_pages) != 0) {
         throw runtime_error("File is corrupt!");
