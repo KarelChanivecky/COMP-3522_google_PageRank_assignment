@@ -19,7 +19,6 @@
 using namespace std;
 
 class Connectivity_Matrix : public Page_Matrix {
-    // TODO create association algorithm
 public:
     /**
      * Construct an instance with the passed pages.
@@ -38,13 +37,7 @@ public:
      *
      * @param pages The pages to be associated with rows and columns of the matrix
      */
-    Connectivity_Matrix(vector<string> &pages);
-
-    /**
-     * Get the pages associated with rows and columns of the matrix.
-     * @return the pages associated with rows and columns of the matrix.
-     */
-    vector<string> get_pages() const { return pages; }
+    Connectivity_Matrix(const vector<double> &connections, const vector<string> &pages);
 };
 
 
