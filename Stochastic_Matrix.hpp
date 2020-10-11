@@ -30,22 +30,23 @@ private:
      * @param col the column to evaluate
      * @return the value to assign to every column connection
      */
-    double get_col_val(const int col) const;
+    double get_col_val(int col) const;
 
     /**
      * Assign value to every connection in column
      * @param col the column to process
      * @param val the value to assign
      */
-    void assign_col_val(const int col, const double val);
+    void assign_col_val(int col, double val);
 
     /**
      * Assign the value to every element in column.
      * @param col the column to process
      * @param val the value to assign
      */
-    void assign_no_link_col_val(const int col, const double val);
-    void normalize();
+    void assign_no_link_col_val(int col, double val);
+
+    void normalize(); //TODO: <Karel> add doc
 public:
 
     /**

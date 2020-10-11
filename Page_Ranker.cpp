@@ -22,7 +22,7 @@
 
 constexpr int INITIAL_PAGE_NAME = 'A';
 
-Matrix * create_teleportation_matrix( const int side_size) {
+Matrix* create_teleportation_matrix( const int side_size) {
     vector<double> teleportationValues;
 
     for ( int i = 0; i < side_size * side_size; i++) {
@@ -34,7 +34,7 @@ Matrix * create_teleportation_matrix( const int side_size) {
 }
 
 void transform_to_transition( Stochastic_Matrix& stochastic_matrix) {
-    Matrix * teleportation_matrix = create_teleportation_matrix( stochastic_matrix.get_col_count() );
+    Matrix* teleportation_matrix = create_teleportation_matrix( stochastic_matrix.get_col_count() );
     stochastic_matrix *= RANDOM_WALK_PROB;
     *teleportation_matrix *= ( 1 - RANDOM_WALK_PROB);
     stochastic_matrix += *teleportation_matrix;
@@ -78,7 +78,7 @@ void output(Matrix &markov_matrix) {
     }
 }
 
-vector<double> * get_connections(string &filename) {
+vector<double>* get_connections(string &filename) {
     string line;
     ifstream src{filename};
     auto connections = new vector<double>;
@@ -99,7 +99,7 @@ vector<double> * get_connections(string &filename) {
     return connections;
 }
 
-vector<string> * assemble_pages(vector<double> &connections) {
+vector<string>* assemble_pages(vector<double> &connections) {
     double number_of_pages = sqrt(connections.size());
     if ((number_of_pages - (int) number_of_pages) != 0) {
         throw runtime_error("File is corrupt!");
@@ -112,7 +112,7 @@ vector<string> * assemble_pages(vector<double> &connections) {
     return pages;
 }
 
-Matrix *rank_pages(Stochastic_Matrix &sto_matrix) {
+Matrix* rank_pages(Stochastic_Matrix &sto_matrix) {
     transform_to_transition( sto_matrix);
     Matrix * ranks = do_markov_process( sto_matrix);
     output(*ranks);

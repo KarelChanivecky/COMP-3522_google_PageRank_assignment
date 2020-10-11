@@ -25,6 +25,7 @@
 #define RANDOM_WALK_PROB 0.85
 
 using namespace std;
+
 /**
  * Read connections from file.
  * @param filename the name of the file to read connections from
@@ -69,7 +70,7 @@ void transform_to_transition( Stochastic_Matrix& stochastic_matrix);
 Matrix* create_rank_matrix(int numberOfRows);
 
 /**
- * Performes the Markov process on a transition matrix.
+ * Performs the Markov process on a transition matrix.
  *
  * @param transition_matrix Matrix&, transition matrix
  * @return Matrix*
