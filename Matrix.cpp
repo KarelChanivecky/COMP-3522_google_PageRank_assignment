@@ -251,7 +251,7 @@ Matrix &Matrix::operator*=( const Matrix &that ) {
 
 bool operator==( const Matrix &lhs, const Matrix &rhs ) {
     if (! sizes_match(lhs, rhs)) {
-        return false;
+       throw invalid_argument("Arguments passed to == are of mis-matched size");
     }
 
     for ( int col = 0; col < lhs.get_col_count(); ++col ) {
@@ -288,7 +288,7 @@ Matrix operator*( Matrix lhs, const Matrix &rhs ) {
 }
 
 bool Matrix::compare(const double a, const double b, const double epsilon){
-    return fabs(a) - fabs(b) <= epsilon;
+    return fabs(a - b) <= epsilon;
 }
 
 ostream& operator<<(ostream& os, const Matrix& obj) {
