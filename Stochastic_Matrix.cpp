@@ -1,7 +1,10 @@
 /**
- * 10/2/2020
+ * 9/25/2020
  * Created by Karel Chanivecky Garcia.
  * A01052674
+ *
+ * Clinton Fernandes
+ * A01 182 058
  *
  * BCIT CST
  * Set O Datacomm
@@ -15,8 +18,8 @@
 Stochastic_Matrix::Stochastic_Matrix( const Connectivity_Matrix &connectivity_matrix )  :
 Page_Matrix(connectivity_matrix.get_pages()){
     vector<vector<double>> to_copy(connectivity_matrix.get_matrix());
-    for ( int i = 0; i < to_copy.size(); ++i ) {
-        for ( int j = 0; j < to_copy.size(); ++j ) {
+    for ( unsigned int i = 0; i < to_copy.size(); ++i ) {
+        for ( unsigned int j = 0; j < to_copy.size(); ++j ) {
             matrix[i][j] = to_copy[i][j];
         }
     }

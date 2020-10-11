@@ -1,5 +1,5 @@
 /**
- * 10/2/2020
+ * 9/25/2020
  * Created by Karel Chanivecky Garcia.
  * A01052674
  *
@@ -42,6 +42,6 @@ vector<string> * assemble_pages(vector<double> &connections);
  * @param pages the pages to rank
  * @return a Page_Matrix
  */
-Page_Matrix * rank_pages(Stochastic_Matrix &sto_matrix);
+Matrix * rank_pages(Stochastic_Matrix &sto_matrix);
 
 #endif //ASSIGNMENT1_V2_PAGE_RANKER_HPP

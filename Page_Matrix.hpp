@@ -58,12 +58,6 @@ public:
      * @return the pages associated with the matrix
      */
     vector<string> get_pages() const { return pages; }
-
-    /**
-     * Get the value matrix.
-     * @return the value matrix
-     */
-    vector<vector<double>> get_matrix() const { return matrix; }
 };
 
 

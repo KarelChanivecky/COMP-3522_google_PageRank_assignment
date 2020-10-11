@@ -40,7 +40,7 @@ public:
      *
      * @param pages The pages to be associated with rows and columns of the matrix
      */
-    Connectivity_Matrix(const vector<double> &connections, const vector<string> &pages);
+    Connectivity_Matrix(const vector<double> &connections, const vector<string> &new_pages);
 };
 
 

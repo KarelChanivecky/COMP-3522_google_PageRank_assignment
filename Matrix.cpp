@@ -1,13 +1,14 @@
 /**
- * 10/1/2020
- * Created by
- * Karel Chanivecky Garcia.
+ * 9/25/2020
+ * Created by Karel Chanivecky Garcia.
  * A01052674
  *
- * Clinton Fernandez
+ * Clinton Fernandes
+ * A01 182 058
  *
- * BCIT CST COMP-3522
+ * BCIT CST
  * Set O Datacomm
+ * COMP - 3522
  *
  * Assignment 1
  */
@@ -85,12 +86,23 @@ Matrix::Matrix( const Matrix &matrixToCopy ): col_count(matrixToCopy.get_col_cou
     }
 }
 
+Matrix::Matrix( const vector<vector<double>> &old_vector ) : col_count(old_vector.size()),
+row_count(old_vector.at(0).size()){
+    for (const vector<double>& col : old_vector) {
+        vector<double> new_col;
+        for (double row: col) {
+            new_col.emplace_back(row);
+        }
+        matrix.emplace_back(new_col);
+    }
+}
+
 Matrix::~Matrix() {
     cout << "Matrix destructor" << endl;
 }
 
-bool Matrix::set_value( int col, int row, double val ) {
-    if (col < MINIMUM_VALUE || row < MINIMUM_VALUE) {
+void Matrix::set_value( int col, int row, double val ) {
+    if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
         throw std::invalid_argument("column and row must be >= 0");
     }
 
@@ -102,7 +114,7 @@ bool Matrix::set_value( int col, int row, double val ) {
 }
 
 double Matrix::get_value( int col, int row ) const {
-    if (col < MINIMUM_VALUE || row < MINIMUM_VALUE) {
+    if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
         throw std::invalid_argument("column and row must be >= 0");
     }
 
@@ -123,14 +135,13 @@ void Matrix::clear() {
 
 Matrix &Matrix::matrixIncrement(const Matrix &operand, const bool operationIsAddition) {
     const int amount = operationIsAddition ? 1 : -1;
-
     for ( int col = 0; col < col_count; ++col ) {
         for ( int row = 0; row < row_count; ++row ) {
             set_value(col, row, get_value(col, row) + amount);
             double currentValue = get_value(col, row);
 
             if (!operationIsAddition && currentValue < MINIMUM_VALUE) {
-                set_value(col, row, MINIMUM_VALUE);
+                set_value(col, row, Matrix::MINIMUM_VALUE);
             }
         }
     }

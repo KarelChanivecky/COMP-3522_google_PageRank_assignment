@@ -104,7 +104,7 @@ public:
      * Construct an instance by copying the contents of a given 2d vector of double.
      * @param old_vector
      */
-    explicit Matrix( vector<vector<double>> old_vector );
+    explicit Matrix( const vector<vector<double>> &old_vector );
 
     /**
      * Destroy instance.
@@ -117,9 +117,8 @@ public:
      * @param row an int <= row_count
      * @param val a double
      * @throws exception if row or col is <= 0
-     * @return true if successful, else false
      */
-    bool set_value( int col, int row, double val );
+    void set_value( int col, int row, double val );
 
     /**
      * Get the value at the given column and row
@@ -262,6 +261,12 @@ public:
     friend bool sizes_match(const Matrix & lhs, const Matrix &rhs) {
         return lhs.col_count == rhs.col_count && lhs.row_count == rhs.row_count;
     }
+
+    /**
+     * Get the value matrix.
+     * @return the value matrix
+     */
+    vector<vector<double>> get_matrix() const { return matrix; }
 };
 
 

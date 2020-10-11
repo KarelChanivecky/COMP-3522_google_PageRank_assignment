@@ -1,23 +1,28 @@
 /**
- * 10/10/2020
+ * 9/25/2020
  * Created by Karel Chanivecky Garcia.
  * A01052674
  *
+ * Clinton Fernandes
+ * A01 182 058
+ *
  * BCIT CST
  * Set O Datacomm
+ * COMP - 3522
  *
- * ${PROYECT_NAME}
+ * Assignment 1
  */
 
-#include "catch.hpp"
+#define CATCH_CONFIG_MAIN
 #include "Connectivity_Matrix.hpp"
+#include "catch.hpp"
 
-TEST_CASE( "all values are correct" ) {
+TEST_CASE("all values are correct") {
     vector<double> values { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0 };
     vector<string> pageNames{"A", "B", "C"};
     vector<vector<double>> expected {{0.0, 1.0, 0.0}, {1.0, 0.0, 1.0}, {0.0, 1.0, 0.0}};
     Connectivity_Matrix result{ values, pageNames};
-    REQUIRE( expected == result.get_matrix() );
+    REQUIRE(expected == result.get_matrix());
 }
 
 TEST_CASE( "incorrect size throws exception" ) {
@@ -29,13 +34,13 @@ TEST_CASE( "incorrect size throws exception" ) {
     } catch ( invalid_argument &e) {
         exception_thrown = true;
     }
-    REQUIRE( exception_thrown );
+    REQUIRE(exception_thrown);
 }
 
-TEST_CASE( "matrix size 1" ) {
+TEST_CASE("matrix size 1") {
     vector<double> values { 0.0 };
     vector<string> pageNames{"A"};
     vector<vector<double>> expected {{0.0}};
     Connectivity_Matrix result{ values, pageNames};
-    REQUIRE( expected == result.get_matrix() );
+    REQUIRE(expected == result.get_matrix());
 }

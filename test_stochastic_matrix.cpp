@@ -1,33 +1,38 @@
 /**
- * 10/10/2020
+ * 9/25/2020
  * Created by Karel Chanivecky Garcia.
  * A01052674
  *
+ * Clinton Fernandes
+ * A01 182 058
+ *
  * BCIT CST
  * Set O Datacomm
+ * COMP - 3522
  *
- * ${PROYECT_NAME}
+ * Assignment 1
  */
 
-#include "catch.hpp"
+#define CATCH_CONFIG_MAIN
 #include "Stochastic_Matrix.hpp"
+#include "catch.hpp"
 
-TEST_CASE( "normalization for one page, connected, is correct" ) {
+TEST_CASE("normalization for one page, connected, is correct") {
     vector<double> values { 1.0 };
     vector<string> pageNames{"A"};
     vector<vector<double>> expected {{1.0}};
     Connectivity_Matrix cm{ values, pageNames};
     Stochastic_Matrix result{cm};
-    REQUIRE( expected == result.get_matrix() );
+    REQUIRE(expected == result.get_matrix());
 }
 
-TEST_CASE( "normalization for more than one page, all connected, is correct" ) {
+TEST_CASE("normalization for more than one page, all connected, is correct") {
     vector<double> values { 0.0 };
     vector<string> pageNames{"A"};
     vector<vector<double>> expected {{0.0}};
     Connectivity_Matrix cm{ values, pageNames};
     Stochastic_Matrix result{cm};
-    REQUIRE( expected == result.get_matrix() );
+    REQUIRE(expected == result.get_matrix());
 }
 
 TEST_CASE( "normalization for more than one page, not all connected, is correct" ) {
