@@ -13,9 +13,9 @@
  * Assignment 1
  */
 
-#include "catch.hpp"
+#define CATCH_CONFIG_MAIN
 #include "Page_Ranker.hpp"
-
+#include "catch.hpp"
 
 TEST_CASE( "normalization for more than one page, not all connected, is correct" ) {
     vector<double> values { 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0 };

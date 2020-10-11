@@ -13,25 +13,26 @@
  * Assignment 1
  */
 
-#include "catch.hpp"
+#define CATCH_CONFIG_MAIN
 #include "Stochastic_Matrix.hpp"
+#include "catch.hpp"
 
-TEST_CASE( "normalization for one page, connected, is correct" ) {
+TEST_CASE("normalization for one page, connected, is correct") {
     vector<double> values { 1.0 };
     vector<string> pageNames{"A"};
     vector<vector<double>> expected {{1.0}};
     Connectivity_Matrix cm{ values, pageNames};
     Stochastic_Matrix result{cm};
-    REQUIRE( expected == result.get_matrix() );
+    REQUIRE(expected == result.get_matrix());
 }
 
-TEST_CASE( "normalization for more than one page, all connected, is correct" ) {
+TEST_CASE("normalization for more than one page, all connected, is correct") {
     vector<double> values { 0.0 };
     vector<string> pageNames{"A"};
     vector<vector<double>> expected {{0.0}};
     Connectivity_Matrix cm{ values, pageNames};
     Stochastic_Matrix result{cm};
-    REQUIRE( expected == result.get_matrix() );
+    REQUIRE(expected == result.get_matrix());
 }
 
 TEST_CASE( "normalization for more than one page, not all connected, is correct" ) {

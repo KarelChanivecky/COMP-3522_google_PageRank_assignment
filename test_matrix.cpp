@@ -13,6 +13,7 @@
  * Assignment 1
  */
 
+#define CATCH_CONFIG_MAIN
 #include <stdexcept>
 #include "catch.hpp"
 #include "Matrix.hpp"
