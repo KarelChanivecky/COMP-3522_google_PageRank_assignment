@@ -33,7 +33,7 @@ private:
     /*
      * Increments every value in a Matrix by 1 or -1.
      */
-    Matrix& matrixIncrement(Matrix& operand, const bool operationIsAddition);
+    Matrix& matrixIncrement(Matrix& operand, bool operationIsAddition);
 
     /*
      * Performs an addition or subtraction operation between this matrix and another.
@@ -133,7 +133,6 @@ public:
      * Set all of the values in the matrix to DEFAULT_VALUE
      */
     void clear();
-
 
     /**
      * Get the number of columns.
@@ -252,6 +251,13 @@ public:
     */
     friend Matrix operator*(Matrix lhs, const Matrix &rhs );
 
+    /**
+     * Prints out the matrix contents.
+     *
+     * @param ostream& os reference to the output stream
+     * @param Matrix& obj reference to Matrix to print
+     * @return ostream&
+     */
     friend ostream& operator<<(ostream& os, const Matrix& obj);
 
     /**

@@ -91,8 +91,7 @@ Matrix::Matrix( const Matrix &matrixToCopy ): col_count(matrixToCopy.get_col_cou
     }
 }
 
-Matrix::Matrix( const vector<vector<double>> &old_vector ) : col_count(old_vector.size()),
-row_count(old_vector.at(0).size()){
+Matrix::Matrix( const vector<vector<double>> &old_vector ) : col_count(old_vector.size()), row_count(old_vector.at(0).size()) {
     for (const vector<double>& col : old_vector) {
         vector<double> new_col;
         for (double row: col) {
@@ -108,11 +107,11 @@ Matrix::~Matrix() {
 
 void Matrix::set_value( int col, int row, double val ) {
     if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
-        throw std::invalid_argument("column and row must be >= 0");
+        throw std::invalid_argument("Cannot set value to matrix: column and row must be >= 0");
     }
 
     if (col > get_col_count() || row > get_row_count()) {
-        throw std::invalid_argument("column and row must not exceed matrix size");
+        throw std::invalid_argument("Cannot set value to matrix: column and row must not exceed matrix size");
     }
 
     matrix[col][row] = val;
@@ -120,11 +119,11 @@ void Matrix::set_value( int col, int row, double val ) {
 
 double Matrix::get_value( int col, int row ) const {
     if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
-        throw std::invalid_argument("column and row must be >= 0");
+        throw std::invalid_argument("Cannot get Matrix value: column and row must be >= 0");
     }
 
     if (col > get_col_count() || row > get_row_count()) {
-        throw std::invalid_argument("column and row must not exceed matrix size");
+        throw std::invalid_argument("Cannot get Matrix value: column and row must not exceed matrix size");
     }
 
     return matrix[col][row];
@@ -198,7 +197,7 @@ Matrix &Matrix::matrixIncrementByAMatrix(const Matrix &operand, const bool opera
     const int factor = operationIsAddition ? 1 : -1;
 
     if (!sizes_match(*this, operand)) {
-        throw invalid_argument("Cannot perform operation: size mismatch");
+        throw invalid_argument("Cannot perform arithmetic operation: matrix size mismatch");
     }
     for ( int col = 0; col < col_count; ++col ) {
         for ( int row = 0; row < row_count; ++row ) {
@@ -251,7 +250,7 @@ Matrix &Matrix::operator*=( const Matrix &that ) {
 
 bool operator==( const Matrix &lhs, const Matrix &rhs ) {
     if (! sizes_match(lhs, rhs)) {
-       throw invalid_argument("Arguments passed to == are of mis-matched size");
+       return false;
     }
 
     for ( int col = 0; col < lhs.get_col_count(); ++col ) {
