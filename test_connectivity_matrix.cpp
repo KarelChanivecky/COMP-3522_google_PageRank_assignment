@@ -16,8 +16,9 @@
 #define CATCH_CONFIG_MAIN
 #include "Connectivity_Matrix.hpp"
 #include "catch.hpp"
+#include "Stochastic_Matrix.hpp"
 
-TEST_CASE("all values are correct") {
+TEST_CASE("CONNECTIVITY all values are correct") {
     vector<double> values { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0 };
     vector<string> pageNames{"A", "B", "C"};
     vector<vector<double>> expected {{0.0, 1.0, 0.0}, {1.0, 0.0, 1.0}, {0.0, 1.0, 0.0}};
@@ -25,7 +26,7 @@ TEST_CASE("all values are correct") {
     REQUIRE(expected == result.get_matrix());
 }
 
-TEST_CASE( "incorrect size throws exception" ) {
+TEST_CASE( "CONNECTIVITY incorrect size throws exception" ) {
     vector<double> values { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0 };
     vector<string> pageNames{"A", "B", "C"};
     bool  exception_thrown = false;
@@ -37,10 +38,11 @@ TEST_CASE( "incorrect size throws exception" ) {
     REQUIRE(exception_thrown);
 }
 
-TEST_CASE("matrix size 1") {
+TEST_CASE("CONNECTIVITY matrix size 1") {
     vector<double> values { 0.0 };
     vector<string> pageNames{"A"};
     vector<vector<double>> expected {{0.0}};
     Connectivity_Matrix result{ values, pageNames};
     REQUIRE(expected == result.get_matrix());
 }
+
