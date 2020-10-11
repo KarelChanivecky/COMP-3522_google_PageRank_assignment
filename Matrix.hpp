@@ -21,6 +21,8 @@
 
 using namespace std;
 
+static constexpr double DEFAULT_VAL{ 0.0 };
+
 class Matrix {
 private:
     /*
@@ -38,7 +40,6 @@ private:
      */
     Matrix& matrixIncrementByAMatrix(const Matrix &operand, bool operationIsAddition);
 protected:
-    static constexpr double DEFAULT_VAL{ 0.0 };
     static constexpr int DEFAULT_SIZE{ 1 };
     static constexpr double FLOAT_TOLERANCE{ 0.001f };
     static constexpr double MINIMUM_VALUE {0.0};
@@ -54,8 +55,10 @@ public:
      *
      * Initializes col_count and row_count to 0. Matrix to new vector
      */
-    Matrix() : col_count( DEFAULT_SIZE ), row_count( DEFAULT_SIZE ) {
-        matrix.at(0).push_back(DEFAULT_VAL);
+    Matrix() : col_count(DEFAULT_SIZE), row_count(DEFAULT_SIZE) {
+        vector<double> v;
+        v.push_back(DEFAULT_VAL);
+        matrix.push_back(v);
     }
 
     /**

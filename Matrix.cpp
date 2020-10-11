@@ -85,16 +85,12 @@ Matrix::Matrix( const Matrix &matrixToCopy ): col_count(matrixToCopy.get_col_cou
     }
 }
 
-Matrix::Matrix( vector<vector<double>> old_vector ) { //Todo
-
-}
-
 Matrix::~Matrix() {
     cout << "Matrix destructor" << endl;
 }
 
 bool Matrix::set_value( int col, int row, double val ) {
-    if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
+    if (col < MINIMUM_VALUE || row < MINIMUM_VALUE) {
         throw std::invalid_argument("column and row must be >= 0");
     }
 
@@ -106,7 +102,7 @@ bool Matrix::set_value( int col, int row, double val ) {
 }
 
 double Matrix::get_value( int col, int row ) const {
-    if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
+    if (col < MINIMUM_VALUE || row < MINIMUM_VALUE) {
         throw std::invalid_argument("column and row must be >= 0");
     }
 
@@ -134,7 +130,7 @@ Matrix &Matrix::matrixIncrement(const Matrix &operand, const bool operationIsAdd
             double currentValue = get_value(col, row);
 
             if (!operationIsAddition && currentValue < MINIMUM_VALUE) {
-                set_value(col, row, Matrix::MINIMUM_VALUE);
+                set_value(col, row, MINIMUM_VALUE);
             }
         }
     }
