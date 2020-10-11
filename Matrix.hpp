@@ -252,6 +252,8 @@ public:
     */
     friend Matrix operator*(Matrix lhs, const Matrix &rhs );
 
+    friend ostream& operator<<(ostream& os, const Matrix& obj);
+
     /**
      * Evaluate if two matrices have the same size
      * @param lhs a Matrix
@@ -268,6 +270,5 @@ public:
      */
     vector<vector<double>> get_matrix() const { return matrix; }
 };
-
 
 #endif //CODE_MATRIX_HPP

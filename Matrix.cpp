@@ -278,3 +278,14 @@ bool Matrix::compare(const double a, const double b, const double epsilon){
     return fabs(a - b) <= epsilon;
 }
 
+ostream& operator<<(ostream& os, const Matrix& obj) {
+    for (int col = 0; col < obj.get_col_count(); col++) {
+        for (int row = 0; row < obj.get_row_count(); row++) {
+            os << obj.get_value(col, row) << "\t";
+        }
+        cout << endl;
+    }
+
+    return os;
+}
+
