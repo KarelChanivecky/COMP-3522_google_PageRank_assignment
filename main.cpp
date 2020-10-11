@@ -25,7 +25,8 @@ using namespace std;
 #define DEFAULT_FILENAME "connectivity.txt"
 
 void driver() {
-    vector<double> * connections = get_connections(( string & ) DEFAULT_FILENAME );
+    string filename = DEFAULT_FILENAME;
+    vector<double> * connections = get_connections( filename );
     vector<string> * pages = assemble_pages(*connections);
     Connectivity_Matrix conn_matrix{*connections, *pages};
     Stochastic_Matrix sto_matrix{conn_matrix};
