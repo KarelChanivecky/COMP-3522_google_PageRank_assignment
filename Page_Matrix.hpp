@@ -52,12 +52,6 @@ public:
      * @param to_copy
      */
     Page_Matrix(const Page_Matrix &to_copy);
-
-    /**
-     * Get the pages associated with the matrix.
-     * @return the pages associated with the matrix
-     */
-    vector<string> get_pages() const { return pages; }
 };
 
 

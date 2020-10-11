@@ -86,8 +86,15 @@ Matrix::Matrix( const Matrix &matrixToCopy ): col_count(matrixToCopy.get_col_cou
     }
 }
 
-Matrix::Matrix( vector<vector<double>> old_vector ) { //Todo
-
+Matrix::Matrix( const vector<vector<double>> &old_vector ) : col_count(old_vector.size()),
+row_count(old_vector.at(0).size()){
+    for (const vector<double>& col : old_vector) {
+        vector<double> new_col;
+        for (double row: col) {
+            new_col.emplace_back(row);
+        }
+        matrix.emplace_back(new_col);
+    }
 }
 
 Matrix::~Matrix() {
@@ -128,7 +135,6 @@ void Matrix::clear() {
 
 Matrix &Matrix::matrixIncrement(const Matrix &operand, const bool operationIsAddition) {
     const int amount = operationIsAddition ? 1 : -1;
-
     for ( int col = 0; col < col_count; ++col ) {
         for ( int row = 0; row < row_count; ++row ) {
             set_value(col, row, get_value(col, row) + amount);

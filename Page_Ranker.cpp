@@ -13,12 +13,12 @@
  * Assignment 1
  */
 
-#include "Page_Ranker.hpp"
 #include <iostream>
 #include <sstream>
 #include <cstring>
 #include <cmath>
 #include <fstream>
+#include "Page_Ranker.hpp"
 
 
 
@@ -26,53 +26,57 @@ constexpr int INITIAL_PAGE_NAME = 'A';
 
 #define RANDOM_WALK_PROB 0.85
 
-Matrix createTeleportationMatrix(const int n) {
+// TODO comments
+Matrix * create_teleportation_matrix( const int side_size) {
     vector<double> teleportationValues;
 
-    for (int i = 0; i < n; i++) {
-        teleportationValues.push_back((double) 1 / n);
+    for ( int i = 0; i < side_size; i++) {
+        teleportationValues.push_back((double) 1 / side_size);
     }
-    Matrix teleportationMatrix(teleportationValues);
+    auto * teleportationMatrix = new Matrix(teleportationValues);
 
     return teleportationMatrix;
 }
 
-Matrix createTransitionMatrix(Matrix& stochasticMatrix, Matrix& teleportationMatrix) {
-    stochasticMatrix *= RANDOM_WALK_PROB;
-    teleportationMatrix *= (1 - RANDOM_WALK_PROB);
+// TODO comments
+void transform_to_transition( Stochastic_Matrix& stochastic_matrix) {
+    Matrix * teleportation_matrix = create_teleportation_matrix( stochastic_matrix.get_col_count() );
+    stochastic_matrix *= RANDOM_WALK_PROB;
+    *teleportation_matrix *= ( 1 - RANDOM_WALK_PROB);
+    stochastic_matrix += *teleportation_matrix;
+    delete teleportation_matrix;
 
-    return stochasticMatrix + teleportationMatrix;
 }
 
-Matrix createRankMatrix(const int numberOfRows) {
-    Matrix rankMatrix(1, numberOfRows);
+Matrix * create_rank_matrix(const int numberOfRows) {
+    auto * rankMatrix = new Matrix(1, numberOfRows);
     for (int i = 0; i < numberOfRows; i++) {
-        rankMatrix.set_value(1, i, 1.0);
+        rankMatrix->set_value(1, i, 1.0);
     }
-
     return rankMatrix;
 }
 
-Matrix& doMarkovProcess(Matrix& rankMatrix, Matrix& transitionMatrix) {
-    Matrix priorValues(rankMatrix);
-
-    rankMatrix *= transitionMatrix;
-    while (rankMatrix != priorValues) {
-        priorValues = rankMatrix; // Todo: Will this make an alias or a copy?
-        rankMatrix *= transitionMatrix;
+// TODO comments
+Matrix * do_markov_process(Matrix& transition_matrix) {
+    Matrix * rank_matrix = create_rank_matrix( transition_matrix.get_row_count());
+    Matrix prior_values( *rank_matrix);
+    *rank_matrix *= transition_matrix;
+    while ( *rank_matrix != prior_values) {
+        prior_values = *rank_matrix; // Todo: Will this make an alias or a copy?
+        *rank_matrix *= transition_matrix;
     }
-
-    return rankMatrix;
+    return rank_matrix;
 }
 
-void output(const Matrix& markovedMatrix, const int n) {
-    double sumOfRanks = 0;
+// TODO comments
+void output( const Matrix& markov_matrix, const int n) {
+    double sum_of_ranks = 0;
     for (int i = 0; i < n; i++) {
-        sumOfRanks += markovedMatrix.get_value(1, i);
+        sum_of_ranks += markov_matrix.get_value( 1, i);
     }
 
     for (int i = 0; i < n; i++) {
-        cout << ( markovedMatrix.get_value(1, i) / sumOfRanks ) << endl;
+        cout << ( markov_matrix.get_value( 1, i) / sum_of_ranks ) << endl;
     }
 }
 
@@ -124,5 +128,9 @@ vector<string> * assemble_pages(vector<double> &connections) {
  * @return a Page_Matrix
  */
 Page_Matrix * rank_pages(Stochastic_Matrix &sto_matrix) {
-
+    int side_size = sto_matrix.get_col_count();
+    transform_to_transition( sto_matrix);
+    Matrix * markov_matrix = do_markov_process(sto_matrix);
+    output( *markov_matrix, side_size);
+    delete markov_matrix;
 }

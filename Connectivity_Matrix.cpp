@@ -17,7 +17,8 @@
 #include <stdexcept>
 #include "Connectivity_Matrix.hpp"
 
-Connectivity_Matrix::Connectivity_Matrix(const vector<double> &connections, const vector<string> &pages ) {
+Connectivity_Matrix::Connectivity_Matrix(const vector<double> &connections, const vector<string> &new_pages ) :
+Page_Matrix(new_pages) {
     double side_size = sqrt( connections.size());
 
     if ( floor( side_size) != side_size) {
@@ -27,7 +28,7 @@ Connectivity_Matrix::Connectivity_Matrix(const vector<double> &connections, cons
     col_count = (int) side_size;
     row_count = (int) side_size;
 
-    for (int i = 0; i < connections.size(); ++i) {
+    for (unsigned int i = 0; i < connections.size(); ++i) {
         double val = connections.at(i);
         if (val != 0 && val != 1) {
             throw invalid_argument("All elements in connections must have a value of 0 or 1");

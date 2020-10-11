@@ -101,7 +101,7 @@ public:
      * Construct an instance by copying the contents of a given 2d vector of double.
      * @param old_vector
      */
-    explicit Matrix( vector<vector<double>> old_vector );
+    explicit Matrix( const vector<vector<double>> &old_vector );
 
     /**
      * Destroy instance.

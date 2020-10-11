@@ -30,23 +30,9 @@ void driver() {
     vector<string> * pages = assemble_pages(*connections);
     Connectivity_Matrix conn_matrix{*connections, *pages};
     Stochastic_Matrix sto_matrix{conn_matrix};
-    Matrix * ranks = rank_pages(sto_matrix); // <--- what's this?
-    const int n = connections->size();
+    Matrix * ranks = rank_pages(sto_matrix);
 
-    //7. Create teleportation matrix
-    Matrix teleportationMatrix = createTeleportationMatrix(n);
 
-    //8. Create transition matrix
-    Matrix transitionMatrix = createTransitionMatrix(sto_matrix, teleportationMatrix);
-
-    //9. Create a column matrix rank (size n * 1)
-    Matrix rankMatrix = createRankMatrix(n);
-
-    //10. Markov process
-    Matrix markovedMatrix = doMarkovProcess(rankMatrix, transitionMatrix);
-
-    //11. And finally.
-    output(markovedMatrix, n);
 
 //    cout << *ranks << endl;
     delete connections;
