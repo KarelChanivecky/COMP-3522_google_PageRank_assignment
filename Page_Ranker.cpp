@@ -73,7 +73,7 @@ void output(Matrix &markov_matrix) {
         proportionate_ranks(markov_matrix);
 
         double value = markov_matrix.get_value(0, i);
-        char pageName = i + 65;
+        char pageName = (char) (i + 65);
         cout << "Page " << pageName << ":" << value << "%"<< endl;
     }
 }
