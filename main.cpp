@@ -15,7 +15,6 @@
 
 #include <iostream>
 #include <vector>
-#include <sstream>
 #include "Matrix.hpp"
 #include "Connectivity_Matrix.hpp"
 #include "Stochastic_Matrix.hpp"

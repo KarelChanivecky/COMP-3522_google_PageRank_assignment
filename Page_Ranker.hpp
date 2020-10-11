@@ -42,12 +42,6 @@ vector<string> * assemble_pages(vector<double> &connections);
  * @param pages the pages to rank
  * @return a Page_Matrix
  */
-Page_Matrix * rank_pages(Stochastic_Matrix &sto_matrix);
-
-// TODO comments
-Matrix * create_teleportation_matrix( const int side_size);
-
-// TODO comments
-Matrix create_transition_matrix( Matrix& stochastic_matrix, Matrix& teleportation_matrix)
+Matrix * rank_pages(Stochastic_Matrix &sto_matrix);
 
 #endif //ASSIGNMENT1_V2_PAGE_RANKER_HPP

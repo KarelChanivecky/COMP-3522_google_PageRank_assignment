@@ -65,15 +65,6 @@ public:
      * @param connectivity_matrix a Connectivity_Matrix
      */
     explicit Stochastic_Matrix(const Connectivity_Matrix &connectivity_matrix);
-
-
-    /**
-     * Gets the rankings of the pages.
-     *
-     * @return a Matrix with 1 column where the value in each index is associated
-     * with the respective Page in the pages vector
-     */
-    Matrix get_rankings() const;
 };
 
 

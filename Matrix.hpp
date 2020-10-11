@@ -38,10 +38,10 @@ private:
      */
     Matrix& matrixIncrementByAMatrix(const Matrix &operand, bool operationIsAddition);
 protected:
-    static constexpr double DEFAULT_VAL{ 0.0 };
-    static constexpr int DEFAULT_SIZE{ 1 };
-    static constexpr double FLOAT_TOLERANCE{ 0.001f };
-    static constexpr double MINIMUM_VALUE {0.0};
+    const double DEFAULT_VAL{ 0.0 };
+    const int DEFAULT_SIZE{ 1 };
+    constexpr static double FLOAT_TOLERANCE{ 0.001f };
+    const double MINIMUM_VALUE {0.0};
 
     int col_count;
     int row_count;
@@ -114,9 +114,8 @@ public:
      * @param row an int <= row_count
      * @param val a double
      * @throws exception if row or col is <= 0
-     * @return true if successful, else false
      */
-    bool set_value( int col, int row, double val );
+    void set_value( int col, int row, double val );
 
     /**
      * Get the value at the given column and row

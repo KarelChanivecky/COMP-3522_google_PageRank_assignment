@@ -101,7 +101,7 @@ Matrix::~Matrix() {
     cout << "Matrix destructor" << endl;
 }
 
-bool Matrix::set_value( int col, int row, double val ) {
+void Matrix::set_value( int col, int row, double val ) {
     if (col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE) {
         throw std::invalid_argument("column and row must be >= 0");
     }

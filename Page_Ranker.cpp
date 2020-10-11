@@ -88,7 +88,7 @@ void output( const Matrix& markov_matrix, const int n) {
 vector<double> * get_connections(string &filename) {
     string line;
     ifstream src{filename};
-    auto connections = new vector<int>;
+    auto connections = new vector<double>;
     if (!src.is_open()) {
         cerr << "could not open file:\n" << strerror(errno) << endl;
         exit(EXIT_FAILURE);
@@ -103,6 +103,7 @@ vector<double> * get_connections(string &filename) {
             iss >> conn;
         }
     }
+    return connections;
 }
 
 /**
@@ -120,6 +121,7 @@ vector<string> * assemble_pages(vector<double> &connections) {
         string name{to_string(INITIAL_PAGE_NAME + i)};
         pages->emplace_back(name);
     }
+    return pages;
 }
 
 /**
@@ -127,10 +129,10 @@ vector<string> * assemble_pages(vector<double> &connections) {
  * @param pages the pages to rank
  * @return a Page_Matrix
  */
-Page_Matrix * rank_pages(Stochastic_Matrix &sto_matrix) {
+Matrix * rank_pages(Stochastic_Matrix &sto_matrix) {
     int side_size = sto_matrix.get_col_count();
     transform_to_transition( sto_matrix);
     Matrix * markov_matrix = do_markov_process(sto_matrix);
     output( *markov_matrix, side_size);
-    delete markov_matrix;
+    return markov_matrix;
 }
