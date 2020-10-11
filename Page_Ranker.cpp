@@ -26,7 +26,12 @@ constexpr int INITIAL_PAGE_NAME = 'A';
 
 #define RANDOM_WALK_PROB 0.85
 
-// TODO comments
+/**
+ * Creates a teleportation matrix.
+ *
+ * @param side_size int, number of values in a row of the matrix.
+ * @return Matrix*
+ */
 Matrix * create_teleportation_matrix( const int side_size) {
     vector<double> teleportationValues;
 
@@ -38,17 +43,25 @@ Matrix * create_teleportation_matrix( const int side_size) {
     return teleportationMatrix;
 }
 
-// TODO comments
+/**
+ * Forms a transition matrix from a stochastic matrix and a teleportation matrix.
+ * @param stochastic_matrix Matrix&
+ */
 void transform_to_transition( Stochastic_Matrix& stochastic_matrix) {
     Matrix * teleportation_matrix = create_teleportation_matrix( stochastic_matrix.get_col_count() );
     stochastic_matrix *= RANDOM_WALK_PROB;
     *teleportation_matrix *= ( 1 - RANDOM_WALK_PROB);
     stochastic_matrix += *teleportation_matrix;
     delete teleportation_matrix;
-
 }
 
-Matrix * create_rank_matrix(const int numberOfRows) {
+/**
+ * Creates a rank matrix for the Markov process.
+ *
+ * @param numberOfRows int, number of rows in the matrix
+ * @return Mtrix*
+ */
+Matrix* create_rank_matrix(const int numberOfRows) {
     auto * rankMatrix = new Matrix(1, numberOfRows);
     for (int i = 0; i < numberOfRows; i++) {
         rankMatrix->set_value(0, i, 1.0);
@@ -56,8 +69,13 @@ Matrix * create_rank_matrix(const int numberOfRows) {
     return rankMatrix;
 }
 
-// TODO comments
-Matrix * do_markov_process(Matrix& transition_matrix) {
+/**
+ * Performes the Markov process on a transition matrix.
+ *
+ * @param transition_matrix Matrix&, transition matrix
+ * @return Matrix*
+ */
+Matrix* do_markov_process(Matrix& transition_matrix) {
     Matrix * rank_matrix = create_rank_matrix( transition_matrix.get_row_count());
     Matrix prior_values( *rank_matrix);
     (*rank_matrix) = transition_matrix * (*rank_matrix);
@@ -68,8 +86,12 @@ Matrix * do_markov_process(Matrix& transition_matrix) {
     return rank_matrix;
 }
 
-// TODO comments
-void proportionate_ranks(Matrix &ranks) {
+/**
+ * Scales page rankings so they sum to ~1.
+ *
+ * @param ranks Matrix&
+ */
+void proportionate_ranks(Matrix& ranks) {
     double sum = 0;
     for (int i = 0; i < ranks.get_row_count(); i++) {
         sum += ranks.get_value(0, i);
@@ -77,7 +99,12 @@ void proportionate_ranks(Matrix &ranks) {
     ranks *= (1/sum);
 }
 
-// TODO comments
+/**
+ * Outputs results of Google's page ranking algorithm.
+ *
+ * @param markov_matrix Matrix&, the markov matrix
+ * @param n int, the number of pages being compared
+ */
 void output( const Matrix& markov_matrix, const int n) {
     double sum_of_ranks = 0;
     for (int i = 0; i < n; i++) {

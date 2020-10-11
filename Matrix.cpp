@@ -287,6 +287,14 @@ Matrix operator*( Matrix lhs, const Matrix &rhs ) {
     return lhs;
 }
 
+/**
+ * Determines if two floats are equivalent within a tolerance.
+ *
+ * @param a float
+ * @param b float
+ * @param epsilon tolerance limit
+ * @return boolean
+ */
 bool Matrix::compare(const double a, const double b, const double epsilon){
     return fabs(a - b) <= epsilon;
 }
