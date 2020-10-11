@@ -17,8 +17,7 @@
 #include <stdexcept>
 #include "Connectivity_Matrix.hpp"
 
-Connectivity_Matrix::Connectivity_Matrix(const vector<double> &connections, const vector<string> &new_pages ) :
-Page_Matrix(new_pages) {
+Connectivity_Matrix::Connectivity_Matrix(const vector<double> &connections, const vector<string> &new_pages ): Page_Matrix(new_pages) {
     double side_size = sqrt( connections.size());
 
     if ( floor( side_size) != side_size) {
