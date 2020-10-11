@@ -20,18 +20,8 @@
 #include <fstream>
 #include "Page_Ranker.hpp"
 
-
-
 constexpr int INITIAL_PAGE_NAME = 'A';
 
-#define RANDOM_WALK_PROB 0.85
-
-/**
- * Creates a teleportation matrix.
- *
- * @param side_size int, number of values in a row of the matrix.
- * @return Matrix*
- */
 Matrix * create_teleportation_matrix( const int side_size) {
     vector<double> teleportationValues;
 
@@ -43,10 +33,6 @@ Matrix * create_teleportation_matrix( const int side_size) {
     return teleportationMatrix;
 }
 
-/**
- * Forms a transition matrix from a stochastic matrix and a teleportation matrix.
- * @param stochastic_matrix Matrix&
- */
 void transform_to_transition( Stochastic_Matrix& stochastic_matrix) {
     Matrix * teleportation_matrix = create_teleportation_matrix( stochastic_matrix.get_col_count() );
     stochastic_matrix *= RANDOM_WALK_PROB;
@@ -55,12 +41,6 @@ void transform_to_transition( Stochastic_Matrix& stochastic_matrix) {
     delete teleportation_matrix;
 }
 
-/**
- * Creates a rank matrix for the Markov process.
- *
- * @param numberOfRows int, number of rows in the matrix
- * @return Mtrix*
- */
 Matrix* create_rank_matrix(const int numberOfRows) {
     auto * rankMatrix = new Matrix(1, numberOfRows);
     for (int i = 0; i < numberOfRows; i++) {
@@ -69,12 +49,6 @@ Matrix* create_rank_matrix(const int numberOfRows) {
     return rankMatrix;
 }
 
-/**
- * Performes the Markov process on a transition matrix.
- *
- * @param transition_matrix Matrix&, transition matrix
- * @return Matrix*
- */
 Matrix* do_markov_process(Matrix& transition_matrix) {
     Matrix * rank_matrix = create_rank_matrix( transition_matrix.get_row_count());
     Matrix prior_values( *rank_matrix);
@@ -86,47 +60,27 @@ Matrix* do_markov_process(Matrix& transition_matrix) {
     return rank_matrix;
 }
 
-/**
- * Scales page rankings so they sum to ~1.
- *
- * @param ranks Matrix&
- */
 void proportionate_ranks(Matrix& ranks) {
     double sum = 0;
     for (int i = 0; i < ranks.get_row_count(); i++) {
         sum += ranks.get_value(0, i);
     }
-    ranks *= (1/sum);
+    ranks *= ( (1/sum) * 100);
 }
 
-/**
- * Outputs results of Google's page ranking algorithm.
- *
- * @param markov_matrix Matrix&, the markov matrix
- * @param n int, the number of pages being compared
- */
-void output( const Matrix& markov_matrix, const int n) {
-    double sum_of_ranks = 0;
-    for (int i = 0; i < n; i++) {
-        sum_of_ranks += markov_matrix.get_value( 0, i);
-    }
+void output(Matrix &markov_matrix) {
+    for (int i = 0; i < markov_matrix.get_row_count(); i++) {
+        proportionate_ranks(markov_matrix);
 
-    for (int i = 0; i < n; i++) {
-        double value = (markov_matrix.get_value( 0, i) / sum_of_ranks) * 100;
+        double value = markov_matrix.get_value(0, i);
         char pageName = i + 65;
         cout << "Page " << pageName << ":" << value << "%"<< endl;
     }
 }
 
-/**
- * Read connections from file.
- * @param filename the name of the file to read connections from
- * @return a vector of int representing connections
- */
 vector<double> * get_connections(string &filename) {
     string line;
     ifstream src{filename};
-
     auto connections = new vector<double>;
     if (!src.is_open()) {
         cerr << "could not open file:\n" << strerror(errno) << endl;
@@ -145,11 +99,6 @@ vector<double> * get_connections(string &filename) {
     return connections;
 }
 
-/**
- * Assemble pages.
- * @param connections the connections to assemble pages from
- * @return a vector of string
- */
 vector<string> * assemble_pages(vector<double> &connections) {
     double number_of_pages = sqrt(connections.size());
     if ((number_of_pages - (int) number_of_pages) != 0) {
@@ -163,14 +112,9 @@ vector<string> * assemble_pages(vector<double> &connections) {
     return pages;
 }
 
-/**
- * Get a Page_Matrix where the values are the rank of the respective pages
- * @param pages the pages to rank
- * @return a Page_Matrix
- */
-Matrix * rank_pages(Stochastic_Matrix &sto_matrix) {
+Matrix *rank_pages(Stochastic_Matrix &sto_matrix) {
     transform_to_transition( sto_matrix);
     Matrix * ranks = do_markov_process( sto_matrix);
-    proportionate_ranks(*ranks);
+    output(*ranks);
     return ranks;
 }
