@@ -33,7 +33,7 @@ private:
     /*
      * Increments every value in a Matrix by 1 or -1.
      */
-    Matrix& matrixIncrement(const Matrix &operand, bool operationIsAddition);
+    Matrix& matrixIncrement(Matrix& operand, const bool operationIsAddition);
 
     /*
      * Performs an addition or subtraction operation between this matrix and another.

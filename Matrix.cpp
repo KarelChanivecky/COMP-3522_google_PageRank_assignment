@@ -67,22 +67,27 @@ Matrix::Matrix( const vector<double>& initial_values ) {
             throw std::invalid_argument("Matrix values must be >= 0");
         }
 
-        if (row.size() == rowSize) {
+        if ((int) row.size() == row_count) {
             matrix.push_back(row);
             row.clear();
         }
 
         row.push_back(value);
     }
+    matrix.push_back(row);
 }
 
 Matrix::Matrix( const Matrix &matrixToCopy ): col_count(matrixToCopy.get_col_count()), row_count(matrixToCopy.get_row_count()) {
     for (int col = 0; col < matrixToCopy.get_col_count(); col++) {
+        vector<double> v;
+
         for (int row = 0; row < matrixToCopy.get_row_count(); row++) {
             double value = matrixToCopy.get_value(col, row);
-
-            set_value(col, row, value);
+            v.push_back(value);
         }
+
+        matrix.push_back(v);
+        v.clear();
     }
 }
 
@@ -133,19 +138,20 @@ void Matrix::clear() {
     }
 }
 
-Matrix &Matrix::matrixIncrement(const Matrix &operand, const bool operationIsAddition) {
+Matrix& Matrix::matrixIncrement(Matrix& operand, const bool operationIsAddition) {
     const int amount = operationIsAddition ? 1 : -1;
-    for ( int col = 0; col < col_count; ++col ) {
-        for ( int row = 0; row < row_count; ++row ) {
-            set_value(col, row, get_value(col, row) + amount);
-            double currentValue = get_value(col, row);
 
-            if (!operationIsAddition && currentValue < MINIMUM_VALUE) {
-                set_value(col, row, Matrix::MINIMUM_VALUE);
+    for ( int col = 0; col < operand.col_count; ++col ) {
+        for ( int row = 0; row < operand.row_count; ++row ) {
+            operand.set_value(col, row, get_value(col, row) + amount);
+            double currentValue = operand.get_value(col, row);
+
+            if (currentValue < Matrix::MINIMUM_VALUE) {
+                operand.set_value(col, row, Matrix::MINIMUM_VALUE);
             }
         }
     }
-    return *this;
+    return operand;
 }
 
 Matrix &Matrix::operator++() {
@@ -163,7 +169,7 @@ Matrix &Matrix::operator--() {
 }
 
 Matrix Matrix::operator--( int ) {
-    const Matrix tmp(*this);
+    Matrix tmp(*this);
     operator--();
 
     return tmp;
