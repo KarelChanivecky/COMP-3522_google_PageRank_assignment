@@ -102,7 +102,7 @@ Matrix::Matrix( const vector<vector<double>> &old_vector ) : col_count(old_vecto
 }
 
 Matrix::~Matrix() {
-    cout << "Matrix destructor" << endl;
+    ;
 }
 
 void Matrix::set_value( int col, int row, double val ) {
