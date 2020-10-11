@@ -21,6 +21,8 @@
 
 using namespace std;
 
+static constexpr double DEFAULT_VAL{ 0.0 };
+
 class Matrix {
 private:
     /*
@@ -38,10 +40,9 @@ private:
      */
     Matrix& matrixIncrementByAMatrix(const Matrix &operand, bool operationIsAddition);
 protected:
-    const double DEFAULT_VAL{ 0.0 };
-    const int DEFAULT_SIZE{ 1 };
-    constexpr static double FLOAT_TOLERANCE{ 0.001f };
-    const double MINIMUM_VALUE {0.0};
+    static constexpr int DEFAULT_SIZE{ 1 };
+    static constexpr double FLOAT_TOLERANCE{ 0.001f };
+    static constexpr double MINIMUM_VALUE {0.0};
 
     int col_count;
     int row_count;
@@ -54,8 +55,10 @@ public:
      *
      * Initializes col_count and row_count to 0. Matrix to new vector
      */
-    Matrix() : col_count( DEFAULT_SIZE ), row_count( DEFAULT_SIZE ) {
-        matrix.at(0).push_back(DEFAULT_VAL);
+    Matrix() : col_count(DEFAULT_SIZE), row_count(DEFAULT_SIZE) {
+        vector<double> v;
+        v.push_back(DEFAULT_VAL);
+        matrix.push_back(v);
     }
 
     /**
@@ -249,6 +252,8 @@ public:
     */
     friend Matrix operator*(Matrix lhs, const Matrix &rhs );
 
+    friend ostream& operator<<(ostream& os, const Matrix& obj);
+
     /**
      * Evaluate if two matrices have the same size
      * @param lhs a Matrix
@@ -265,6 +270,5 @@ public:
      */
     vector<vector<double>> get_matrix() const { return matrix; }
 };
-
 
 #endif //CODE_MATRIX_HPP
