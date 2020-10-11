@@ -16,6 +16,7 @@
 #ifndef CODE_MATRIX_HPP
 #define CODE_MATRIX_HPP
 
+#include <stdexcept>
 #include <vector>
 
 using namespace std;
@@ -63,7 +64,7 @@ public:
      */
     explicit Matrix(const int square_size) : col_count(square_size), row_count(square_size) {
         if (square_size <= 0) {
-            throw  invalid_argument("Values for columns and rows must be > 0");
+            throw std::invalid_argument("Values for columns and rows must be > 0");
         }
     };
 
