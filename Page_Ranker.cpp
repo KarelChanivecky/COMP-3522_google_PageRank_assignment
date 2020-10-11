@@ -24,6 +24,58 @@
 
 constexpr int INITIAL_PAGE_NAME = 'A';
 
+#define RANDOM_WALK_PROB 0.85
+
+Matrix createTeleportationMatrix(const int n) {
+    vector<double> teleportationValues;
+
+    for (int i = 0; i < n; i++) {
+        teleportationValues.push_back((double) 1 / n);
+    }
+    Matrix teleportationMatrix(teleportationValues);
+
+    return teleportationMatrix;
+}
+
+Matrix createTransitionMatrix(Matrix& stochasticMatrix, Matrix& teleportationMatrix) {
+    stochasticMatrix *= RANDOM_WALK_PROB;
+    teleportationMatrix *= (1 - RANDOM_WALK_PROB);
+
+    return stochasticMatrix + teleportationMatrix;
+}
+
+Matrix createRankMatrix(const int numberOfRows) {
+    Matrix rankMatrix(1, numberOfRows);
+    for (int i = 0; i < numberOfRows; i++) {
+        rankMatrix.set_value(1, i, 1.0);
+    }
+
+    return rankMatrix;
+}
+
+Matrix& doMarkovProcess(Matrix& rankMatrix, Matrix& transitionMatrix) {
+    Matrix priorValues(rankMatrix);
+
+    rankMatrix *= transitionMatrix;
+    while (rankMatrix != priorValues) {
+        priorValues = rankMatrix; // Todo: Will this make an alias or a copy?
+        rankMatrix *= transitionMatrix;
+    }
+
+    return rankMatrix;
+}
+
+void output(const Matrix& markovedMatrix, const int n) {
+    double sumOfRanks = 0;
+    for (int i = 0; i < n; i++) {
+        sumOfRanks += markovedMatrix.get_value(1, i);
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << ( markovedMatrix.get_value(1, i) / sumOfRanks ) << endl;
+    }
+}
+
 /**
  * Read connections from file.
  * @param filename the name of the file to read connections from
