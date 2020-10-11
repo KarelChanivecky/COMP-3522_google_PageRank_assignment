@@ -259,6 +259,12 @@ public:
     friend bool sizes_match(const Matrix & lhs, const Matrix &rhs) {
         return lhs.col_count == rhs.col_count && lhs.row_count == rhs.row_count;
     }
+
+    /**
+     * Get the value matrix.
+     * @return the value matrix
+     */
+    vector<vector<double>> get_matrix() const { return matrix; }
 };
 
 
