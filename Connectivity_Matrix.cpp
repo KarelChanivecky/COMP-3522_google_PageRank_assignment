@@ -29,13 +29,10 @@ Page_Matrix(new_pages) {
     row_count = (int) side_size;
 
     for (unsigned int i = 0; i < connections.size(); ++i) {
-        double val = connections.at(i);
+        double val{connections[i]};
         if (val != 0 && val != 1) {
             throw invalid_argument("All elements in connections must have a value of 0 or 1");
         }
-        if (i % (int)side_size == 0) {
-                matrix.emplace_back(vector<double>());
-        }
-        matrix[i / (int)side_size].emplace_back(val);
+        matrix[i / side_size][i % (int)side_size] = val;
     }
 }

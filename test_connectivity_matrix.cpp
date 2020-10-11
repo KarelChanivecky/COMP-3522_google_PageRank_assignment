@@ -27,7 +27,7 @@ TEST_CASE("CONNECTIVITY all values are correct") {
 }
 
 TEST_CASE( "CONNECTIVITY incorrect size throws exception" ) {
-    vector<double> values { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0 };
+    vector<double> values { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
     vector<string> pageNames{"A", "B", "C"};
     bool  exception_thrown = false;
     try {
