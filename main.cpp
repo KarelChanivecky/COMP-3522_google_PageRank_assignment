@@ -13,7 +13,6 @@
  * Assignment 1
  */
 
-#include <iostream>
 #include <vector>
 #include "Matrix.hpp"
 #include "Connectivity_Matrix.hpp"
@@ -22,7 +21,7 @@
 
 using namespace std;
 
-#define DEFAULT_FILENAME "connectivity.txt"
+#define DEFAULT_FILENAME "../connectivity.txt"
 
 void driver() {
     string filename = DEFAULT_FILENAME;

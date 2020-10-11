@@ -13,6 +13,7 @@
  * Assignment 1
  */
 
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <cstring>
@@ -74,7 +75,7 @@ void output(Matrix &markov_matrix) {
 
         double value = markov_matrix.get_value(0, i);
         char pageName = (char) (i + 65);
-        cout << "Page " << pageName << ":" << value << "%"<< endl;
+        cout << "Page " << pageName << ": " << setw(5) << fixed << setprecision(2) << value << "%"<< endl;
     }
 }
 
