@@ -30,8 +30,8 @@ constexpr int INITIAL_PAGE_NAME = 'A';
 Matrix * create_teleportation_matrix( const int side_size) {
     vector<double> teleportationValues;
 
-    for ( int i = 0; i < side_size; i++) {
-        teleportationValues.push_back((double) 1 / side_size);
+    for ( int i = 0; i < side_size * side_size; i++) {
+        teleportationValues.push_back( 1.0 / side_size);
     }
     auto * teleportationMatrix = new Matrix(teleportationValues);
 
@@ -51,7 +51,7 @@ void transform_to_transition( Stochastic_Matrix& stochastic_matrix) {
 Matrix * create_rank_matrix(const int numberOfRows) {
     auto * rankMatrix = new Matrix(1, numberOfRows);
     for (int i = 0; i < numberOfRows; i++) {
-        rankMatrix->set_value(1, i, 1.0);
+        rankMatrix->set_value(0, i, 1.0);
     }
     return rankMatrix;
 }
@@ -60,23 +60,32 @@ Matrix * create_rank_matrix(const int numberOfRows) {
 Matrix * do_markov_process(Matrix& transition_matrix) {
     Matrix * rank_matrix = create_rank_matrix( transition_matrix.get_row_count());
     Matrix prior_values( *rank_matrix);
-    *rank_matrix *= transition_matrix;
+    (*rank_matrix) = transition_matrix * (*rank_matrix);
     while ( *rank_matrix != prior_values) {
-        prior_values = *rank_matrix; // Todo: Will this make an alias or a copy?
-        *rank_matrix *= transition_matrix;
+        prior_values = *rank_matrix;
+        (*rank_matrix) = transition_matrix * (*rank_matrix);
     }
     return rank_matrix;
+}
+
+// TODO comments
+void proportionate_ranks(Matrix &ranks) {
+    double sum = 0;
+    for (int i = 0; i < ranks.get_row_count(); i++) {
+        sum += ranks.get_value(0, i);
+    }
+    ranks *= (1/sum);
 }
 
 // TODO comments
 void output( const Matrix& markov_matrix, const int n) {
     double sum_of_ranks = 0;
     for (int i = 0; i < n; i++) {
-        sum_of_ranks += markov_matrix.get_value( 1, i);
+        sum_of_ranks += markov_matrix.get_value( 0, i);
     }
 
     for (int i = 0; i < n; i++) {
-        cout << ( markov_matrix.get_value( 1, i) / sum_of_ranks ) << endl;
+        cout << ( markov_matrix.get_value( 0, i) / sum_of_ranks ) << endl;
     }
 }
 
@@ -130,9 +139,8 @@ vector<string> * assemble_pages(vector<double> &connections) {
  * @return a Page_Matrix
  */
 Matrix * rank_pages(Stochastic_Matrix &sto_matrix) {
-    int side_size = sto_matrix.get_col_count();
     transform_to_transition( sto_matrix);
-    Matrix * markov_matrix = do_markov_process(sto_matrix);
-    output( *markov_matrix, side_size);
-    return markov_matrix;
+    Matrix * ranks = do_markov_process( sto_matrix);
+    proportionate_ranks(*ranks);
+    return ranks;
 }

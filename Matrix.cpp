@@ -26,14 +26,14 @@ Matrix::Matrix( int cols, int rows ): col_count(cols), row_count(rows) {
         throw std::invalid_argument("Values for columns and rows must be > 0");
     }
 
-    for (int i = 0; i < rows; i++) {
-        vector<double> row;
+    for (int i = 0; i < cols; i++) {
+        vector<double> col;
 
-        for (int j = 0; j < cols; j++) {
-            row.push_back(DEFAULT_VAL);
+        for (int j = 0; j < rows; j++) {
+            col.push_back(DEFAULT_VAL);
         }
 
-        matrix.push_back(row);
+        matrix.push_back(col);
     }
 }
 
@@ -115,7 +115,7 @@ void Matrix::set_value( int col, int row, double val ) {
         throw std::invalid_argument("column and row must not exceed matrix size");
     }
 
-    matrix.at(row).at(col) = val;
+    matrix[col][row] = val;
 }
 
 double Matrix::get_value( int col, int row ) const {
@@ -127,7 +127,7 @@ double Matrix::get_value( int col, int row ) const {
         throw std::invalid_argument("column and row must not exceed matrix size");
     }
 
-    return matrix.at(row).at(col);
+    return matrix[col][row];
 }
 
 void Matrix::clear() {
@@ -226,9 +226,16 @@ Matrix &Matrix::operator*=( const Matrix &that ) {
     if (that.row_count != this->col_count) {
         throw invalid_argument("Matrix multiplication error! incorrect sizes!");
     }
-    vector<vector<double>> result;
     int result_col_count = that.col_count;
     int result_row_count = that.row_count;
+    vector<vector<double>> result;
+    for ( int col = 0; col < result_col_count; ++col ) {
+        vector<double> col_vector;
+        for ( int row = 0; row < result_row_count; ++row ) {
+            col_vector.emplace_back(DEFAULT_VAL);
+        }
+        result.emplace_back(col_vector);
+    }
     for ( int res_row = 0; res_row < result_row_count; res_row++) {
         for ( int res_col = 0; res_col < result_col_count; res_col++) {
             for (int dot_index = 0; dot_index < this->row_count; dot_index++) {
@@ -281,7 +288,7 @@ Matrix operator*( Matrix lhs, const Matrix &rhs ) {
 }
 
 bool Matrix::compare(const double a, const double b, const double epsilon){
-    return fabs(a - b) <= epsilon;
+    return fabs(a) - fabs(b) <= epsilon;
 }
 
 ostream& operator<<(ostream& os, const Matrix& obj) {

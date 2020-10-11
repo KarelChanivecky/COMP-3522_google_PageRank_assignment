@@ -33,6 +33,6 @@ Page_Matrix(new_pages) {
         if (val != 0 && val != 1) {
             throw invalid_argument("All elements in connections must have a value of 0 or 1");
         }
-        matrix[i / side_size][i % (int)side_size] = val;
+        matrix[i % (int)side_size][i / side_size] = val;
     }
 }

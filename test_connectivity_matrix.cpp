@@ -19,9 +19,9 @@
 #include "Stochastic_Matrix.hpp"
 
 TEST_CASE("CONNECTIVITY all values are correct") {
-    vector<double> values { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0 };
+    vector<double> values { 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0 };
     vector<string> pageNames{"A", "B", "C"};
-    vector<vector<double>> expected {{0.0, 1.0, 0.0}, {1.0, 0.0, 1.0}, {0.0, 1.0, 0.0}};
+    vector<vector<double>> expected {{0.0, 1.0, 0.0}, {1.0, 0.0, 1.0}, {1.0, 1.0, 0.0}};
     Connectivity_Matrix result{ values, pageNames};
     REQUIRE(expected == result.get_matrix());
 }

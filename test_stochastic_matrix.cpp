@@ -26,19 +26,32 @@ TEST_CASE("STOCHASTIC normalization for one page, connected, is correct") {
     REQUIRE(expected == result.get_matrix());
 }
 
-TEST_CASE("STOCHASTIC normalization for more than one page, all connected, is correct") {
+TEST_CASE("STOCHASTIC normalization for one page, not connected, is correct") {
     vector<double> values { 0.0 };
     vector<string> pageNames{"A"};
-    vector<vector<double>> expected {{0.0}};
+    vector<vector<double>> expected {{1.0}};
     Connectivity_Matrix cm{ values, pageNames};
     Stochastic_Matrix result{cm};
     REQUIRE(expected == result.get_matrix());
 }
 
 TEST_CASE( "STOCHASTIC normalization for more than one page, not all connected, is correct" ) {
-    vector<double> values { 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0 };
+    vector<double> values { 0.0, 1.0, 0.0,
+                            1.0, 0.0, 0.0,
+                            0.0, 1.0, 0.0 };
     vector<string> pageNames{"A", "B", "C"};
-    vector<vector<double>> expected {{0.0, 0.5, 0.33333}, {1.0, 0.0, 0.33333}, {0.0, 0.5, 0.33333}};
+    vector<vector<double>> expected {{0.0, 1.0, 0}, {0.5, 0.0, 0.5}, {0.3333333333, 0.3333333333, 0.3333333333}};
+    Connectivity_Matrix cm{ values, pageNames};
+    Stochastic_Matrix result{cm};
+    REQUIRE( expected == result.get_matrix() );
+}
+
+TEST_CASE( "STOCHASTIC normalization for more than one page, all connected, is correct" ) {
+    vector<double> values { 0.0, 1.0, 1.0,
+                            1.0, 0.0, 1.0,
+                            0.0, 1.0, 1.0 };
+    vector<string> pageNames{"A", "B", "C"};
+    vector<vector<double>> expected {{0.0, 1, 0.0},  {0.5, 0.0, 0.5}, {0.3333333333, 0.3333333333, 0.3333333333}};
     Connectivity_Matrix cm{ values, pageNames};
     Stochastic_Matrix result{cm};
     REQUIRE( expected == result.get_matrix() );
