@@ -1,0 +1,8 @@
+//
+// Created by fress on 11-Oct.-20.
+//
+
+#ifndef ASSIGNMENT1_V2_FAST_TESTS_HPP
+#define ASSIGNMENT1_V2_FAST_TESTS_HPP
+
+#endif //ASSIGNMENT1_V2_FAST_TESTS_HPP

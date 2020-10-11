@@ -112,7 +112,9 @@ void output( const Matrix& markov_matrix, const int n) {
     }
 
     for (int i = 0; i < n; i++) {
-        cout << ( markov_matrix.get_value( 0, i) / sum_of_ranks ) << endl;
+        double value = (markov_matrix.get_value( 0, i) / sum_of_ranks) * 100;
+        char pageName = i + 65;
+        cout << "Page " << pageName << ":" << value << "%"<< endl;
     }
 }
 
@@ -124,6 +126,7 @@ void output( const Matrix& markov_matrix, const int n) {
 vector<double> * get_connections(string &filename) {
     string line;
     ifstream src{filename};
+
     auto connections = new vector<double>;
     if (!src.is_open()) {
         cerr << "could not open file:\n" << strerror(errno) << endl;
