@@ -30,23 +30,33 @@ private:
      * @param col the column to evaluate
      * @return the value to assign to every column connection
      */
-    double get_col_val(int col) const;
+    double get_col_val( unsigned long col ) const;
 
     /**
      * Assign value to every connection in column
      * @param col the column to process
      * @param val the value to assign
      */
-    void assign_col_val(int col, double val);
+    void assign_col_val( unsigned long col, double val );
 
     /**
      * Assign the value to every element in column.
      * @param col the column to process
      * @param val the value to assign
      */
-    void assign_no_link_col_val(int col, double val);
+    void assign_no_link_col_val( unsigned long col, double val );
 
-    void normalize(); //TODO: <Karel> add doc
+    /**
+     * Normalize all columns in matrix
+     *
+     * For every column
+     *  if any row contains a value != 0
+     *      value to assign to every non-zero value = 1 / sum of all values
+     *  else
+     *      assign to all rows: 1 / number of rows
+     */
+    void normalize();
+
 public:
 
     /**
@@ -65,7 +75,7 @@ public:
      *
      * @param connectivity_matrix a Connectivity_Matrix
      */
-    explicit Stochastic_Matrix(const Connectivity_Matrix &connectivity_matrix);
+    explicit Stochastic_Matrix( const Connectivity_Matrix &connectivity_matrix );
 };
 
 

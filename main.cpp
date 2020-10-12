@@ -26,11 +26,11 @@ using namespace std;
 void driver() {
     string filename = DEFAULT_FILENAME;
     vector<double> * connections = get_connections( filename );
-    vector<string> * pages = assemble_pages(*connections);
-    Connectivity_Matrix conn_matrix{*connections, *pages};
-    Stochastic_Matrix sto_matrix{conn_matrix};
-    Matrix * ranks = rank_pages(sto_matrix);
-
+    vector<string> * pages = assemble_pages( *connections );
+    Connectivity_Matrix conn_matrix{ *connections, *pages };
+    Stochastic_Matrix sto_matrix{ conn_matrix };
+    Matrix * ranks = rank_pages( sto_matrix );
+    output( *ranks, sto_matrix.get_pages());
     delete connections;
     delete pages;
     delete ranks;

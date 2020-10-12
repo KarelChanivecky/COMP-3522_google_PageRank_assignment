@@ -45,13 +45,13 @@ public:
      *
      * @param new_pages the pages to be associated with the matrix
      */
-    explicit Page_Matrix(const vector<string> &new_pages);
+    explicit Page_Matrix( const vector<string> &new_pages );
 
     /**
      * Construct a copy.
      * @param to_copy
      */
-    Page_Matrix(const Page_Matrix &to_copy);
+    Page_Matrix( const Page_Matrix &to_copy );
 
     /**
      * Get the pages associated with the matrix.
