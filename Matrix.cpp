@@ -102,10 +102,6 @@ Matrix::Matrix( const vector<vector<double>> &old_vector ) : col_count( old_vect
     }
 }
 
-Matrix::~Matrix() {
-    // Jeff stated this should be empty
-}
-
 void Matrix::set_value( const unsigned long col, const unsigned long row, double val ) {
     if ( col < Matrix::MINIMUM_VALUE || row < Matrix::MINIMUM_VALUE ) {
         throw std::invalid_argument( "Cannot set value to matrix: column and row must be >= 0" );

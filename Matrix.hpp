@@ -111,7 +111,7 @@ public:
     /**
      * Destroy instance.
      */
-    ~Matrix();
+    ~Matrix() = default;
 
     /**
      * Set the given value at the given column and row.
